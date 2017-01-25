@@ -18,5 +18,8 @@
   "homepage": "https://github.com/vajikc3/toyguay_web#readme",
   "dependencies": {
     "angular": "^1.6.1"
+  },
+  "devDependencies": {
+    "lite-server": "^2.2.2"
   }
 }
