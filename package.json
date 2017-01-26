@@ -4,6 +4,9 @@
   "description": "toyguay web app",
   "main": "index.js",
   "scripts": {
+    "sparrest": "node node_modules/node-sparrest/node-sparrest.js",
+    "lite": "lite-server",
+    "start": "concurrently 'npm run sparrest' 'npm run lite'",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -20,6 +23,8 @@
     "angular": "^1.6.1"
   },
   "devDependencies": {
-    "lite-server": "^2.2.2"
+    "concurrently": "^3.1.0",
+    "lite-server": "^2.2.2",
+    "node-sparrest": "0.0.10"
   }
 }
