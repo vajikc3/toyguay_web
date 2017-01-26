@@ -20,6 +20,8 @@
     "angular": "^1.6.1"
   },
   "devDependencies": {
-    "lite-server": "^2.2.2"
+    "concurrently": "^3.1.0",
+    "lite-server": "^2.2.2",
+    "node-sparrest": "0.0.10"
   }
 }
