@@ -21,6 +21,7 @@
   "homepage": "https://github.com/vajikc3/toyguay_web#readme",
   "dependencies": {
     "angular": "^1.6.1",
+    "bootstrap": "^4.0.0-alpha.6",
     "ngcomponentrouter": "^2.1.0"
   },
   "devDependencies": {
