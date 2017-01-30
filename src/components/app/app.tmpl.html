@@ -1,0 +1,57 @@
+<div>
+    <nav class="navbar navbar-toggleable-md navbar-inverse bg-primary">
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#collapsingNavbar">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <a class="navbar-brand" href="#">ToyGuay</a>
+
+        <div class="navbar-center mx-auto">
+            <button > Home </button>
+            <form id="search" class="form-inline form-centered my-2 my-lg-0">
+
+                <div class="input-group">
+                    <div class="input-group-btn">
+                        <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Categoría
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-left">
+                            <a class="dropdown-item" href="#">Categoría 1</a>
+                            <a class="dropdown-item" href="#">Categoría 2</a>
+                            <a class="dropdown-item" href="#">Categoría 3</a>
+                            <div role="separator" class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Todas las categorias</a>
+                        </div>
+                    </div>
+                    <input type="text" class="form-control" placeholder="Search toys">
+                    <div class="input-group-btn">
+                        <button type="button"
+                                class="btn btn-secondary dropdown-toggle"
+                                data-toggle="dropdown"
+                                aria-haspopup="true"
+                                aria-expanded="false">
+                            Distancia
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <a class="dropdown-item" href="#">1 Km</a>
+                            <a class="dropdown-item" href="#">10 Km</a>
+                            <a class="dropdown-item" href="#">30 Km</a>
+                            <div role="separator" class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Separated link</a>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="navbar-collapse collapse" id="collapsingNavbar">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="" data-target="#myModal" data-toggle="modal">About</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container-fluid">
+        <ng-outlet></ng-outlet>
+    </div>
+</div>
