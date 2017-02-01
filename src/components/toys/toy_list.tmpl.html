@@ -1,9 +1,15 @@
-<p>
-    ToyList
-    <button
-            class="btn"
-            ng-link="['ToyDetail', {id: 1}]">
-        Ver +
-    </button>
-
-</p>
+<div style="margin-top: 1em">
+    <div class="card-deck">
+        <div class="card" 
+            style="width: 20rem;" 
+            ng-repeat="toy in $ctrl.filteredList">
+            
+            <img class="card-img-top" src="{{toy.imageURL}}" alt="">
+            <div class="card-block">
+                <h4 class="card-title">{{toy.name}}</h4>
+                <p class="card-text">{{toy.description}}</p>
+                <a href="#" class="btn btn-primary" ng-link="['ToyDetail', {id: 1}]">More</a>
+            </div>
+        </div>
+    </div>
+</div>
