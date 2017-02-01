@@ -6,9 +6,17 @@
             controller: ToyListComponent
         });
 
-    ToyListComponent.$inject = []
+    ToyListComponent.$inject = ['ToyService'];
 
-    function ToyListComponent() {
+    function ToyListComponent(ToyService) {
         var $ctrl = this;
+
+        $ctrl.$onInit = function() {
+
+            ToyService.getAll().then(function(toys){
+                $ctrl.filteredList = toys;
+            });
+
+        }
     }
 })();
