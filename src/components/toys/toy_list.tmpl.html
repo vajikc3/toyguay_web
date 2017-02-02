@@ -2,10 +2,10 @@
     <div class="card-deck">
         <div class="card" 
             style="width: 20rem;" 
-            ng-repeat="toy in $ctrl.filteredList">
+            ng-repeat="toy in $ctrl.filteredList.items">
             
             <img class="card-img-top" src="{{toy.imageURL}}" alt="">
-            <div class="card-block">
+            <div class="card-block ">
                 <h4 class="card-title">{{toy.name}}</h4>
                 <p class="card-text">{{toy.description}}</p>
                 <a href="#" class="btn btn-primary" ng-link="['ToyDetail', {id: 1}]">More</a>

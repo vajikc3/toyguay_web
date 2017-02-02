@@ -12,10 +12,8 @@
         var $ctrl = this;
 
         $ctrl.$onInit = function() {
-
-            ToyService.getAll().then(function(toys){
-                $ctrl.filteredList = toys;
-            });
+            $ctrl.filteredList = ToyService.filteredList;
+            
 
         }
     }
