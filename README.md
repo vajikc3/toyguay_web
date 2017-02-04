@@ -15,6 +15,9 @@ $> cd toyguay
 $> npm install
 ```
 
+## Ramas de desarrollo
+La rama principal de desarrollo es la Develop. La rama Master contiene las versiones estables de la aplicación.
+
 ## Arranque en desarrollo
 
 Arranca servidor http (lite-server) y backend de desarrollo (sparrest).
@@ -22,3 +25,5 @@ Arranca servidor http (lite-server) y backend de desarrollo (sparrest).
 ```bash
 $> npm start
 ```
+
+
