@@ -16,7 +16,8 @@
             getAll: getAll,
             filteredList: filteredList,
             applySearchFilter: applySearchFilter,
-            search: search
+            search: search,
+            get: get
         }
 
         /* ==== IMPLEMENTATION ==== */
@@ -61,6 +62,21 @@
             var comp2 = lowercaseToyDesc.indexOf(lowercaseQuery) >= 0;
             console.log(comp1, comp2);
             return  comp1 || comp2;
+        }
+
+
+        function get(id) {
+            if (!id) return $q.reject({error:"Falta ID de producto"})
+            return $http
+                .get(CONF.API_BASE + CONF.API_ENDPOINT_TOYS + id)
+                .then(function (response) {
+                    return $q.when(response.data)
+                })
+                .catch(function (err) {
+                    $log.error("Cannot obtain product data from ToyGuay. Try again later...", err)
+                    return $q.when({})
+                })
+
         }
 
     }
