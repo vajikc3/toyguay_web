@@ -1,5 +1,12 @@
 # Toyguay Web Application
 
+## Overview
+Se trata del código fuente del cliente web de ToyGuay, una web de venta y donación de juguetes usados.
+
+Las principales tecnologías usadas para construir esta aplicación son:
+- Bootstrap v4
+- Angular >1.6
+
 ## Instalación
 
 ```bash
