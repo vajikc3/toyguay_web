@@ -1,7 +1,7 @@
 <div>
-    <nav class="navbar navbar-inverse navbar-fixed-top">
+    <nav class="navbar navbar-inverse navbar-fixed-top ">
 
-        <div class="container-fluid">
+        <!-- <div class="container-fluid"> -->
             <div class="navbar-header">
               <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
                 <span class="sr-only">Toggle navigation</span>
@@ -11,16 +11,19 @@
               </button>
               <a class="navbar-brand" href="#">ToyGuay</a>
             </div>
+            
+            <search-toys class="navbar-form navbar-center"></search-toys>
+            
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <search-toys class="navbar-form navbar-left"></search-toys>
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="#">Login</a></li>
                 </ul>
             </div>
-        </div>
+            
+        <!-- </div> -->
     </nav>
 
-    
+
     <div class="container-fluid">
         <ng-outlet></ng-outlet>
     </div>
