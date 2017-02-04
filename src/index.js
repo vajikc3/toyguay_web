@@ -1,7 +1,9 @@
 (function() {
     angular
         .module('toyguay', [
-            'ngComponentRouter'
+            'ngComponentRouter',
+            'ngAnimate',
+            'ui.bootstrap',
         ])
 
     angular

@@ -1,15 +1,28 @@
 <div style="margin-top: 1em">
-    <div class="card-deck">
-        <div class="card" 
-            style="width: 20rem;" 
-            ng-repeat="toy in $ctrl.filteredList.items">
-            
-            <img class="card-img-top" src="{{toy.imageURL}}" alt="">
-            <div class="card-block ">
-                <h4 class="card-title">{{toy.name}}</h4>
-                <p class="card-text">{{toy.description}}</p>
-                <a href="#" class="btn btn-primary" ng-link="['ToyDetail', {id: toy.id}]">More</a>
-            </div>
+<div class="row">
+    <div class="panel panel-default toy-card" ng-repeat="toy in $ctrl.filteredList.items">
+        <div uib-carousel 
+                template-url="node_modules/angular-ui-bootstrap/template/carousel/carousel.html"
+                active="active" 
+                interval="myInterval" 
+                no-wrap="noWrapSlides" >
+              <div uib-slide 
+                ng-repeat="image in toy.images track by $index"
+                template-url="node_modules/angular-ui-bootstrap/template/carousel/slide.html"
+                index="$index">
+                <img ng-src="{{image}}" style="margin:auto;">
+                <div class="carousel-caption">
+                  Index {{$index}}
+                </div>
+              </div>
         </div>
+        <div class="panel-body toy-card-body">
+            <!-- <img class="card-img-top" src="" alt=""> -->
+            
+            <h4 class="card-title">{{toy.name}}</h4>
+            <p class="card-text">{{toy.description}}</p>
+            <a href="#" class="btn btn-primary" ng-link="['ToyDetail', {id: toy.id}]">More</a>
+        </div>
+    </div>
     </div>
 </div>
