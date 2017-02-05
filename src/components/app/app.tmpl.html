@@ -1,22 +1,28 @@
 <div>
-    <nav class="navbar navbar-toggleable-md navbar-inverse bg-primary">
-        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#collapsingNavbar">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <a class="navbar-brand" href="#">ToyGuay</a>
+    <nav class="navbar navbar-inverse navbar-fixed-top ">
 
-        <div class="navbar-center mx-auto">
-            <button > Home </button>
-            <search-toys></search-toys>
-        </div>
-        <div class="navbar-collapse collapse" id="collapsingNavbar">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="" data-target="#myModal" data-toggle="modal">About</a>
-                </li>
-            </ul>
-        </div>
+        <!-- <div class="container-fluid"> -->
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="#">ToyGuay</a>
+            </div>
+            
+            <search-toys class="navbar-form navbar-center"></search-toys>
+            
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#">Login</a></li>
+                </ul>
+            </div>
+            
+        <!-- </div> -->
     </nav>
+
 
     <div class="container-fluid">
         <ng-outlet></ng-outlet>
