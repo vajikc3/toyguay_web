@@ -8,6 +8,11 @@
                     path: '/toys/...',
                     component: 'toys',
                     useAsDefault: true
+                },
+                {
+                    name: 'Login',
+                    path: '/login/...',
+                    component: 'login'
                 }
             ],
             controller: AppController,

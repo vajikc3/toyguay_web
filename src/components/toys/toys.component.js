@@ -1,8 +1,4 @@
 (function() {
-    /*
-     El componente de productos contiene la lista de productos
-     y el detalle de producto (productList y productDetail)
-     */
     angular
         .module('toyguay')
         .component('toys', {
