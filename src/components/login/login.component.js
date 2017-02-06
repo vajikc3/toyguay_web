@@ -1,18 +1,18 @@
 (function() {
     angular
         .module('toyguay')
-        .component('toys', {
+        .component('login', {
             $routeConfig: [
                 {
                     path: '/',
-                    name: 'ToyList',
-                    component: 'toyList',
+                    name: 'DoLogin',
+                    component: 'doLogin',
                     useAsDefault: true
                 },
                 {
-                    path: '/:id',
-                    name: 'ToyDetail',
-                    component: 'toyDetail'
+                     path: '/register',
+                     name: 'Register',
+                     component: 'register'
                 }
             ],
             template: '<ng-outlet></ng-outlet>'

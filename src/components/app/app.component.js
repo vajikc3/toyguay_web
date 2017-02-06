@@ -8,14 +8,21 @@
                     path: '/toys/...',
                     component: 'toys',
                     useAsDefault: true
+                },
+                {
+                    name: 'Login',
+                    path: '/login/...',
+                    component: 'login'
                 }
             ],
             controller: AppController,
             templateUrl : 'src/components/app/app.tmpl.html'
         })
 
-
-    function AppController () {
+    AppController.$inject = ['LoginService'];
+    
+    function AppController (LoginService) {
         $ctrl = this;
+        $ctrl.loginData = LoginService.loginData;
     }
 })()

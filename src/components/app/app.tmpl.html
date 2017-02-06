@@ -1,7 +1,7 @@
-<div>
-    <nav class="navbar navbar-inverse navbar-fixed-top ">
 
-        <!-- <div class="container-fluid"> -->
+    <nav class="navbar navbar-inverse navbar-fixed-top " style="padding-right: 20px">
+
+        
             <div class="navbar-header">
               <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
                 <span class="sr-only">Toggle navigation</span>
@@ -15,16 +15,29 @@
             <search-toys class="navbar-form navbar-center"></search-toys>
             
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#">Login</a></li>
+                    <li>{{$ctrl.loginData|json}}</li>
+                    <li ng-show="$ctrl.loginData.logged">
+                        <div style="display:table">
+                            <img class="avatar-img img-circle" src="https://s3.amazonaws.com/uifaces/faces/twitter/sauro/128.jpg" alt="" style="width:50px;display:table-cell;">
+                            <p style="display: table-cell;vertical-align: middle;padding-left: 5px; color:white">
+                                <strong>Usuario 1</strong>
+                                <br>
+                                <span>99 productos</span>
+                            </p>
+                        </div>
+                    </li>
+                    <li ng-show="!$ctrl.loginData.logged">
+                        <a href="/login">Login</a>
+                    </li>
+
                 </ul>
             </div>
             
-        <!-- </div> -->
     </nav>
 
 
     <div class="container-fluid">
         <ng-outlet></ng-outlet>
     </div>
-</div>
