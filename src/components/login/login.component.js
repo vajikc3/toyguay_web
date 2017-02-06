@@ -4,7 +4,7 @@
         .component('login', {
             $routeConfig: [
                 {
-                    path: '/login',
+                    path: '/',
                     name: 'DoLogin',
                     component: 'doLogin',
                     useAsDefault: true

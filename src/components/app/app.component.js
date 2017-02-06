@@ -19,9 +19,10 @@
             templateUrl : 'src/components/app/app.tmpl.html'
         })
 
-
-    function AppController () {
+    AppController.$inject = ['LoginService'];
+    
+    function AppController (LoginService) {
         $ctrl = this;
-        $ctrl.logged = false;
+        $ctrl.loginData = LoginService.loginData;
     }
 })()
