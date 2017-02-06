@@ -22,5 +22,6 @@
 
     function AppController () {
         $ctrl = this;
+        $ctrl.logged = false;
     }
 })()

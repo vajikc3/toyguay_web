@@ -9,11 +9,11 @@
                     component: 'doLogin',
                     useAsDefault: true
                 },
-                // {
-                //     path: '/register',
-                //     name: 'Register',
-                //     component: 'register'
-                // }
+                {
+                     path: '/register',
+                     name: 'Register',
+                     component: 'register'
+                }
             ],
             template: '<ng-outlet></ng-outlet>'
         })

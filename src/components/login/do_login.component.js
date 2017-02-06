@@ -6,10 +6,12 @@
             controller: DoLoginComponent
         });
 
-    DoLoginComponent.$inject = []
+    DoLoginComponent.$inject = ['LoginService']
 
-    function DoLoginComponent() {
+    function DoLoginComponent(LoginService) {
         var $ctrl = this;
+
+        var $ctrl.doLogin = LoginService.doLogin;
 
         
     }
