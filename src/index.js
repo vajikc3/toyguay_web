@@ -2,7 +2,6 @@
     angular
         .module('toyguay', [
             'ngComponentRouter',
-            'ngAnimate',
             'ui.bootstrap',
         ])
 
