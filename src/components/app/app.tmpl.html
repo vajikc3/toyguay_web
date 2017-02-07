@@ -17,6 +17,9 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 
                 <ul class="nav navbar-nav navbar-right">
+                    <li ng-show="!$ctrl.loginData.logged">
+                        <a href="/toys/sell">Vender</a>
+                    </li>
                     <li>{{$ctrl.loginData|json}}</li>
                     <li ng-show="$ctrl.loginData.logged">
                         <div style="display:table">
