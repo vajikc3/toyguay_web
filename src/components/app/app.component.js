@@ -13,6 +13,11 @@
                     name: 'Login',
                     path: '/login/...',
                     component: 'login'
+                },
+                {
+                    name: 'User',
+                    path: '/user/...',
+                    component: 'user'
                 }
             ],
             controller: AppController,
