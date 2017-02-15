@@ -3,9 +3,9 @@
         .module('toyguay')
         .service('ToyService', ToyService);
 
-    ToyService.$inject = ['$http', '$q', '$log', 'CONF']
+    ToyService.$inject = ['$http', '$q', '$log', 'CONF', 'ENDPOINTS']
 
-    function ToyService($http, $q, $log, CONF) {
+    function ToyService($http, $q, $log, CONF, ENDPOINTS) {
 
         var filteredList = {
             items: null
@@ -23,10 +23,10 @@
         /* ==== IMPLEMENTATION ==== */
         function getAll(){
             return $http
-                .get(CONF.API_BASE + CONF.API_ENDPOINT_TOYS)
+                .get(CONF.API_BASE + ENDPOINTS.TOYS)
                 .then(function (response) {
                     // Almacena la lista de productos en filteredList.items
-                    filteredList.items = response.data;
+                    filteredList.items = response.data.rows;
                     return $q.when(response.data);
                 })
                 .catch(function (err) {
@@ -68,7 +68,7 @@
         function get(id) {
             if (!id) return $q.reject({error:"Falta ID de producto"})
             return $http
-                .get(CONF.API_BASE + CONF.API_ENDPOINT_TOYS + id)
+                .get(CONF.API_BASE + ENDPOINTS.TOYS + id)
                 .then(function (response) {
                     return $q.when(response.data)
                 })
