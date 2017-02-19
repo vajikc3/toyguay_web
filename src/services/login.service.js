@@ -16,8 +16,20 @@
             doLogin: doLogin
         }
 
+        /* === IMPLEMENTATION === */
         function doLogin(){
-            loginData.logged = true;
+            $http({
+                method: 'POST',
+                url: 'http://localhost:3000/api/v1/users/authenticate', 
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                data: { 
+                    "user": "bardal", 
+                    "password": "admin"
+                }
+            }).then(function(res){
+                console.log("LOGIN", res);
+            })
+            //loginData.logged = true;
         }
     }
 })();

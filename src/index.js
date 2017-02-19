@@ -7,8 +7,17 @@
 
     angular
         .module('toyguay')
-        .config( function ($locationProvider) {
+        .config( function ($locationProvider, $httpProvider) {
             $locationProvider.html5Mode(true)
+
+
+            $httpProvider.defaults.transformRequest = function(data){
+                if (data === undefined) {
+                    return data;
+                }
+                return $.param(data);
+            }
+
         })
 
     angular
