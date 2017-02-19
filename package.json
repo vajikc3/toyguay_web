@@ -22,6 +22,7 @@
   "dependencies": {
     "angular": "^1.6.1",
     "angular-animate": "^1.6.1",
+    "angular-jwt": "^0.1.9",
     "angular-masonry": "^0.16.0",
     "angular-ui-bootstrap": "^2.5.0",
     "bootstrap": "^3.3.7",
