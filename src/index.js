@@ -3,6 +3,8 @@
         .module('toyguay', [
             'ngComponentRouter',
             'ui.bootstrap',
+            'angular-jwt',
+            'angular-storage',
         ])
 
     angular
