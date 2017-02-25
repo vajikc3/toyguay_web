@@ -1,10 +1,12 @@
 (function() {
+;(function() {
     angular
         .module('toyguay', [
             'ngComponentRouter',
             'ui.bootstrap',
             'angular-jwt',
             'angular-storage',
+            'ngMessages'
         ])
 
     angular
