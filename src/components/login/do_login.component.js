@@ -11,15 +11,20 @@
 
     function DoLoginComponent(LoginService, $timeout, store, jwtHelper) {
         var $ctrl = this;
+
+
         $ctrl.authenticating = false;
         $ctrl.user = '';
         $ctrl.password = '';
         $ctrl.error = null;
 
-        $ctrl.doLogin = doLogin;
-        $ctrl.closeAlert = closeAlert;
+        /* ==== INTERFACE ==== */
         
-        //IMPL
+        $ctrl.doLogin = doLogin;
+   
+
+        /* ==== IMPLEMENTATION ==== */
+
         function doLogin() {
             $ctrl.authenticating = true;
             console.log("user", $ctrl.user)
@@ -38,9 +43,6 @@
                 });
         }
 
-        function closeAlert(){
-
-        }
     }
 
 

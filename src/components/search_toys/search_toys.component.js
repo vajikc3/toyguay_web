@@ -23,6 +23,7 @@
 
 
             /* ==== IMPLEMENTATION ==== */
+
             // Buscador de sugerencias
             function querySearch (query) {
                 if (query) {
@@ -34,15 +35,15 @@
                     return [];
                 }
             }
-            //Busca sugerencias cuando cambia el texto (ver template y md-search-text-change)
+
             function searchTextChange(text) {
-                console.log();
                // $ctrl.searchTerm = text
                // if ($ctrl.searchTerm === "" ) {
                //      loadAllProducts()
                //      querySearch("")
                // }
             }
+            
             // Si seleccionamos un elemento sugerido llamamos a buscar en BD 
             function selectedItemChange() {
                 searchBD()

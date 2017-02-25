@@ -8,12 +8,13 @@
             'ngMessages'
         ])
 
+    /* === CONFIG === */
     angular
         .module('toyguay')
         .config( function ($locationProvider, $httpProvider, jwtInterceptorProvider, jwtOptionsProvider) {
             $locationProvider.html5Mode(true)
 
-            // Configuración urlencode para enviar objetos json vía $http.post
+            // Configuración URLENCODE para enviar objetos json vía $http.post
             $httpProvider.defaults.transformRequest = function(data){
                 if (data === undefined) {
                     return data;
@@ -26,14 +27,13 @@
                 urlParam: 'token',
                 whiteListedDomains: ['localhost']
             });
-
             jwtInterceptorProvider.tokenGetter = function(store) {
-                console.log("jwtInterceptor");
                 return store.get('jwt');
             }
             $httpProvider.interceptors.push('jwtInterceptor');
         });
 
+    /* === VALUES === */
     angular
         .module('toyguay')
         .value('$routerRootComponent', 'app')

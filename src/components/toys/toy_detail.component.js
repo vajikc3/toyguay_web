@@ -12,11 +12,12 @@
         var $ctrl = this;
 
         $ctrl.toy = {};
+
+        /* ==== INTERFACE ==== */
+
         this.$routerOnActivate = routerOnActivate;
 
-
-
-        // IMPL
+        /* ==== IMPLEMENTATION ==== */
         function routerOnActivate(payload) {
             return loadToy(payload.params.id)
         }
