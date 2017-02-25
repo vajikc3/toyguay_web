@@ -3,21 +3,56 @@
         .module('toyguay')
         .service('LoginService', LoginService);
 
-    LoginService.$inject = ['$http', '$q', '$log', 'CONF']
+    LoginService.$inject = ['store', '$http', '$q', '$log', 'CONF', 'ENDPOINTS']
 
-    function LoginService($http, $q, $log, CONF) {
-        var loginData = {
-            logged : false
+    function LoginService(store, $http, $q, $log, CONF, ENDPOINTS) {
+        var state = {
+            authenticated : false
         }
 
         /* ==== INTERFACE ==== */
         return {
-            loginData: loginData,
-            doLogin: doLogin
+            state: state,
+            doLogin: doLogin,
+            register: register
         }
 
-        function doLogin(){
-            loginData.logged = true;
+        /* === IMPLEMENTATION === */
+        function doLogin(user, password){
+            return $http({
+                        method: 'POST',
+                        url: CONF.API_BASE + ENDPOINTS.AUTHENTICATE, 
+                        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                        data: { 
+                            "user": user, 
+                            "email": user,
+                            "password": password
+                        }
+                    }).then(function(response){
+                        store.set('jwt', response.data.token);
+                        state.authenticated = true;
+                        return ({success: true})
+                    }).catch(function(error){
+                        $log.error("Error del sistema autenticación: ", error);
+                        return $q.reject(error);
+                    })
         }
+        
+        function register(user){
+            return $http({
+                        method: 'POST',
+                        url: CONF.API_BASE + ENDPOINTS.REGISTER, 
+                        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                        data: user
+                    }).then(function(response){
+                        store.set('jwt', response.data.token);
+                        state.authenticated = true;
+                        return ({success: true})
+                    }).catch(function(error){
+                        $log.error("Error del sistema autenticación: ", error);
+                        return $q.reject(error);
+                    })
+        }
+
     }
 })();

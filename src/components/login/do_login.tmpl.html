@@ -1,25 +1,42 @@
 <div class="container top-padding">
     <div class="col-md-3"></div>
-    <form class="col-md-6">
+    <form name="loginForm" class="col-md-6">
         <h1>ToyGuay</h1>
+
+        <!--  ====== USER/EMAIL ===== -->
         <div class="form-group">
             <label for="exampleInputEmail1">Usuario</label>
-            <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
+            <input type="text" class="form-control" name="inputUser" id="inputUser" placeholder="Usuario/Email" ng-model="$ctrl.user" >
         </div>
+
+        <!--  ====== PASSWORD ===== -->
         <div class="form-group">
             <label for="exampleInputPassword1">Contraseña</label>
-            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+            <input type="password" class="form-control" id="inputPassword" placeholder="Password" ng-model="$ctrl.password" >
         </div>
+        
+        <!--  ====== LOGIN ===== -->
         <div class="text-center">
-            <button type="submit" class="btn btn-primary" ng-click="$ctrl.doLogin()">login</button>
+            <button type="submit" class="btn btn-primary" ng-click="$ctrl.doLogin()">Login</button>
+            <img src="assets/images/loading.gif" alt="" width="100px" ng-if="$ctrl.authenticating">
         </div>
+
+        
+        <!--  ====== RECOVER/REGISTER ===== -->
         <div class="text-center">
             <button class="btn btn-link">Olvidé mis datos de acceso</button>
         </div>
         <div class="text-center">
             <button class="btn btn-link" ng-link="['Register']">Registro</button>
         </div>
-        
+
+        <!--  ====== ERRORS ===== -->
+        <div ng-if="$ctrl.error">
+            <div uib-alert template-url="node_modules/angular-ui-bootstrap/template/alert/alert.html" 
+                class="alert-danger">
+                {{$ctrl.error.data.error}}
+            </div>
+        </div>
     </form>
     <div class="col-md-3"></div>
 </div>

@@ -11,10 +11,14 @@
     function ToyListComponent(ToyService) {
         var $ctrl = this;
 
-        $ctrl.$onInit = function() {
-            $ctrl.filteredList = ToyService.filteredList;
-            
+        /* ==== INTERFACE ==== */
 
+        $ctrl.$onInit = onInit; 
+
+        /* ==== IMPLEMENTATION ==== */
+
+        function onInit() {
+            $ctrl.filteredList = ToyService.filteredList;
         }
     }
 })();

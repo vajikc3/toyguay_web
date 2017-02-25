@@ -11,38 +11,39 @@
         function SearchToysComponent($log, ToyService) {
             var $ctrl = this
             // Lista de productos para sugerencias del autocompletador
-            $ctrl.toys = loadAllToys()
+            $ctrl.toys = loadAllToys();
             
             /* ==== INTERFACE ==== */
-            $ctrl.querySearch = querySearch
-            $ctrl.searchOnKeyUp = searchOnKeyUp
-            $ctrl.selectedItemChange = selectedItemChange
-            $ctrl.searchTermChange   = searchTextChange
-            $ctrl.searchBD = searchBD
-            $ctrl.searchTerm = ""
+            $ctrl.querySearch = querySearch;
+            $ctrl.searchOnKeyUp = searchOnKeyUp;
+            $ctrl.selectedItemChange = selectedItemChange;
+            $ctrl.searchTermChange   = searchTextChange;
+            $ctrl.searchBD = searchBD;
+            $ctrl.searchTerm = "";
 
 
             /* ==== IMPLEMENTATION ==== */
+
             // Buscador de sugerencias
             function querySearch (query) {
                 if (query) {
                     var res = $ctrl.toys.filter( function (toy) {
-                        return ToyService.applySearchFilter(toy, query)
+                        return ToyService.applySearchFilter(toy, query);
                     })
-                    return res
+                    return res;
                 } else {
-                    return []
+                    return [];
                 }
             }
-            //Busca sugerencias cuando cambia el texto (ver template y md-search-text-change)
+
             function searchTextChange(text) {
-                console.log();
                // $ctrl.searchTerm = text
                // if ($ctrl.searchTerm === "" ) {
                //      loadAllProducts()
                //      querySearch("")
                // }
             }
+            
             // Si seleccionamos un elemento sugerido llamamos a buscar en BD 
             function selectedItemChange() {
                 searchBD()

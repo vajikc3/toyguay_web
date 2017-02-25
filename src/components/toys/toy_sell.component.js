@@ -10,7 +10,5 @@
 
     function ToySellComponent() {
         var $ctrl = this;
-
-
     }
 })();

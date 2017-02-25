@@ -6,13 +6,34 @@
             controller: Register
         });
 
-    Register.$inject = []
+    Register.$inject = ['LoginService']
 
-    function Register() {
+    function Register(LoginService) {
+
         var $ctrl = this;
+        $ctrl.user = {
+            first_name: '',
+            last_name: '',
+            email: '',
+            user: '',
+            password: '',
+            password_repeat: '',
+            longitude: 0,
+            latitude: 0,
+            imageURL: '',
+            state:''
+        }
+
+        /* ==== INTERFACE ==== */
+        
+        $ctrl.register = register;
 
         
+        /* ==== IMPLEMENTATION ==== */
+        
+        function register(){
+            console.log($ctrl.user);
+            LoginService.register($ctrl.user);
+        }
     }
-
-
 })();

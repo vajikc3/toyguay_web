@@ -28,6 +28,6 @@
     
     function AppController (LoginService) {
         $ctrl = this;
-        $ctrl.loginData = LoginService.loginData;
+        $ctrl.loginState = LoginService.state;
     }
 })()

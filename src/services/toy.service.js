@@ -37,7 +37,8 @@
 
         function search(text) {
             return getAll()
-                .then(function (toys) {
+                .then(function (response) {
+                    var toys = response.rows;
                     filteredList.items = toys.filter(function(toy) {
                         var res = applySearchFilter(toy, text)
                         console.log(res)
