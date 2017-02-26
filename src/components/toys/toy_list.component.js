@@ -6,18 +6,20 @@
             controller: ToyListComponent
         });
 
-    ToyListComponent.$inject = ['ToyService'];
+    ToyListComponent.$inject = ['$scope', 'ToyService'];
 
-    function ToyListComponent(ToyService) {
+    function ToyListComponent($scope, ToyService) {
         var $ctrl = this;
 
         /* ==== INTERFACE ==== */
 
-        $ctrl.$onInit = onInit; 
-
+        $ctrl.$onInit = onInit;
+        console.log("oninig", $ctrl); 
+        
         /* ==== IMPLEMENTATION ==== */
-
+        
         function onInit() {
+            ToyService.searcher.activated = true;
             $ctrl.filteredList = ToyService.filteredList;
         }
     }

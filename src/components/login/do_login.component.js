@@ -7,9 +7,9 @@
             controller: DoLoginComponent
         });
 
-    DoLoginComponent.$inject = ['LoginService', '$timeout', 'store', 'jwtHelper'];
+    DoLoginComponent.$inject = ['LoginService', 'ToyService', '$timeout', 'store', 'jwtHelper'];
 
-    function DoLoginComponent(LoginService, $timeout, store, jwtHelper) {
+    function DoLoginComponent(LoginService, ToyService,  $timeout, store, jwtHelper) {
         var $ctrl = this;
 
 
@@ -22,9 +22,12 @@
         
         $ctrl.doLogin = doLogin;
    
-
+        $ctrl.$onInit = onInit;
         /* ==== IMPLEMENTATION ==== */
-
+        
+        function onInit(){
+            ToyService.searcher.activated = false;
+        }
         function doLogin() {
             $ctrl.authenticating = true;
             console.log("user", $ctrl.user)

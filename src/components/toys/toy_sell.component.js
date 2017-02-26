@@ -6,9 +6,10 @@
             controller: ToySellComponent
         });
 
-    ToySellComponent.$inject = [];
+    ToySellComponent.$inject = ['ToyService'];
 
-    function ToySellComponent() {
+    function ToySellComponent(ToyService) {
+        ToyService.searcher.activated = false;
         var $ctrl = this;
     }
 })();

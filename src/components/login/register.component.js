@@ -32,7 +32,6 @@
         /* ==== IMPLEMENTATION ==== */
         
         function register(){
-            console.log($ctrl.user);
             LoginService.register($ctrl.user);
         }
     }

@@ -20,6 +20,7 @@
             $ctrl.searchTermChange   = searchTextChange;
             $ctrl.searchBD = searchBD;
             $ctrl.searchTerm = "";
+            $ctrl.searcher = ToyService.searcher;
 
 
             /* ==== IMPLEMENTATION ==== */

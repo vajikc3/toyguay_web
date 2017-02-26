@@ -11,22 +11,31 @@
             items: null
         };
 
+        var searcher = {
+            activated : false
+        }
+
         /* ==== INTERFACE ==== */
         return {
             getAll: getAll,
             filteredList: filteredList,
             applySearchFilter: applySearchFilter,
             search: search,
-            get: get
+            get: get,
+            searcher: searcher
         }
 
         /* ==== IMPLEMENTATION ==== */
+
         function getAll(){
             return $http
                 .get(CONF.API_BASE + ENDPOINTS.TOYS)
                 .then(function (response) {
                     // Almacena la lista de productos en filteredList.items
                     filteredList.items = response.data.rows;
+                    filteredList.items.forEach(function(toy){
+                        toy.categories.push("default")
+                    })
                     return $q.when(response.data);
                 })
                 .catch(function (err) {

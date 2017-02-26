@@ -1,60 +1,67 @@
 <div class="container top-padding">
     <div class="col-md-3"></div>
-    <form name="registerForm" class="col-md-6">
-        <h1>Registro de usuario</h1>
+    <div class="panel col-md-6 bg-primary-color" >
+        <div class="panel-body">
+            <form name="registerForm">
+                <div style="text-align: center;">
+                    <img src="/assets/images/toyguay_logo_lg.png" height="200px" alt="">
+                    <h1>Registro</h1>
+                </div>
 
-        <!--  ====== FIRST NAME ===== -->
-        <div class="form-group">
-            <label for="inputFirstName">Nombre</label>
-            <input type="text" class="form-control" 
-                    name="inputFirstName"  id="inputFirstName" 
-                    placeholder="Nombre" 
-                    ng-model="$ctrl.user.first_name" 
-                    required>
-        </div>
+                <!--  ====== FIRST NAME ===== -->
+                <div class="form-group">
+                    <label for="inputFirstName">Nombre</label>
+                    <input type="text" class="form-control" 
+                            name="inputFirstName"  id="inputFirstName" 
+                            placeholder="Nombre" 
+                            ng-model="$ctrl.user.first_name" 
+                            required>
+                </div>
 
-        <!--  ====== LAST NAME ===== -->
-        <div class="form-group">
-            <label for="inputLastName">Apellido</label>
-            <input type="text" class="form-control" 
-                    name="inputLastName"  id="inputLastName" 
-                    placeholder="Apellido" 
-                    ng-model="$ctrl.user.last_name" 
-                    required>
-        </div>
+                <!--  ====== LAST NAME ===== -->
+                <div class="form-group">
+                    <label for="inputLastName">Apellido</label>
+                    <input type="text" class="form-control" 
+                            name="inputLastName"  id="inputLastName" 
+                            placeholder="Apellido" 
+                            ng-model="$ctrl.user.last_name" 
+                            required>
+                </div>
 
-        <!--  ====== USER ===== -->
-        <div class="form-group">
-            <label for="inputNickName">Nombre Usuario</label>
-            <input type="text" class="form-control" 
-                    name="inputNickName"  id="inputNickName" 
-                    placeholder="Alias o nombre de usuario" 
-                    ng-model="$ctrl.user.user" 
-                    required>
-        </div>
+                <!--  ====== USER ===== -->
+                <div class="form-group">
+                    <label for="inputNickName">Nombre Usuario</label>
+                    <input type="text" class="form-control" 
+                            name="inputNickName"  id="inputNickName" 
+                            placeholder="Alias o nombre de usuario" 
+                            ng-model="$ctrl.user.user" 
+                            required>
+                </div>
 
 
-        <!--  ====== EMAIL ===== -->
-        <div class="form-group">
-        
-            <label for="inputEmail">Email</label>
-            <input type="email" class="form-control" 
-                    name="inputEmail"  id="inputEmail" 
-                    placeholder="Correo electrónico" 
-                    ng-model="$ctrl.user.email" 
-                    required>
-        </div>
+                <!--  ====== EMAIL ===== -->
+                <div class="form-group">
+                
+                    <label for="inputEmail">Email</label>
+                    <input type="email" class="form-control" 
+                            name="inputEmail"  id="inputEmail" 
+                            placeholder="Correo electrónico" 
+                            ng-model="$ctrl.user.email" 
+                            required>
+                </div>
 
-        <!--  ====== PASSWORD ===== -->
-        <div class="form-group">
-            <label for="inputPassword">Contraseña</label>
-            <input type="password" class="form-control" id="inputPassword" placeholder="Contraseña" ng-model="$ctrl.user.password" required>
-            <p></p>
-            <input type="password" class="form-control" id="inputRepPassword" placeholder="Repetir Contraseña" ng-model="$ctrl.user.password_repeat" required>
+                <!--  ====== PASSWORD ===== -->
+                <div class="form-group">
+                    <label for="inputPassword">Contraseña</label>
+                    <input type="password" class="form-control" id="inputPassword" placeholder="Contraseña" ng-model="$ctrl.user.password" required>
+                    <p></p>
+                    <input type="password" class="form-control" id="inputRepPassword" placeholder="Repetir Contraseña" ng-model="$ctrl.user.password_repeat" required>
+                </div>
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary" ng-click="$ctrl.register()">Registrarse</button>
+                </div>
+            </form>
         </div>
-        <div class="text-center">
-            <button type="submit" class="btn btn-primary" ng-click="$ctrl.register()">Registrarse</button>
-        </div>
-    </form>
+    </div>
     <div class="col-md-3"></div>
 </div>
