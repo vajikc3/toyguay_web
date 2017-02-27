@@ -24,10 +24,16 @@
             templateUrl : 'src/components/app/app.tmpl.html'
         })
 
-    AppController.$inject = ['LoginService'];
+    AppController.$inject = ['LoginService', '$scope'];
     
-    function AppController (LoginService) {
+    function AppController (LoginService, $scope) {
         $ctrl = this;
+        $ctrl.logout = logout;
         $ctrl.loginState = LoginService.state;
+
+        function logout() {
+            LoginService.logout();
+        }
     }
+
 })()

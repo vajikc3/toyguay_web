@@ -21,30 +21,32 @@
         /* ==== INTERFACE ==== */
         
         $ctrl.doLogin = doLogin;
-   
-        $ctrl.$onInit = onInit;
-        /* ==== IMPLEMENTATION ==== */
         
+        $ctrl.$onInit = onInit;
+
+        /* ==== IMPLEMENTATION ==== */
+
         function onInit(){
+
             ToyService.searcher.activated = false;
         }
+
         function doLogin() {
             $ctrl.authenticating = true;
-            console.log("user", $ctrl.user)
-            LoginService
-                .doLogin($ctrl.user, $ctrl.password)
-                .then(function(response){
-                    $timeout(function(){
-                        $ctrl.$router.navigateByUrl('/toys/');
-                    }, 1000);
-                })
-                .catch(function(error){
-                    $ctrl.error = error;
-                })
-                .finally(function(){
-                    $ctrl.authenticating = false;
-                });
+            $timeout(function(){
+                LoginService
+                    .doLogin($ctrl.user, $ctrl.password)
+                    .then(function(response){
+                            $ctrl.authenticating = false;
+                            $ctrl.$router.navigateByUrl('/toys/');
+                    })
+                    .catch(function(error){
+                        $ctrl.error = error;
+                    })
+            }, 5000);
         }
+
+
 
     }
 

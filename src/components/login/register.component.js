@@ -3,12 +3,13 @@
         .module('toyguay')
         .component('register', {
             templateUrl: 'src/components/login/register.tmpl.html',
+            bindings: { $router: '<' },
             controller: Register
         });
 
-    Register.$inject = ['LoginService']
+    Register.$inject = ['LoginService', '$timeout']
 
-    function Register(LoginService) {
+    function Register(LoginService, $timeout) {
 
         var $ctrl = this;
         $ctrl.user = {
@@ -21,8 +22,14 @@
             longitude: 0,
             latitude: 0,
             imageURL: '',
+            city: '',
+            province: '',
+            country: '',
             state:''
         }
+        $ctrl.registering = false;
+        $ctrl.error = null;
+
 
         /* ==== INTERFACE ==== */
         
@@ -32,7 +39,17 @@
         /* ==== IMPLEMENTATION ==== */
         
         function register(){
-            LoginService.register($ctrl.user);
+            $ctrl.registering = true;
+            $timeout(function(){
+                LoginService.register($ctrl.user)
+                    .then(function(response){
+                            $ctrl.registering = false;
+                            $ctrl.$router.navigateByUrl('/toys/');
+                    })
+                    .catch(function(err){
+                        $ctrl.error = error;
+                    });
+            }, 5000);
         }
     }
 })();

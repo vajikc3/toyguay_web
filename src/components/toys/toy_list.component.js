@@ -14,13 +14,17 @@
         /* ==== INTERFACE ==== */
 
         $ctrl.$onInit = onInit;
-        console.log("oninig", $ctrl); 
         
+        init();
         /* ==== IMPLEMENTATION ==== */
-        
-        function onInit() {
+
+        function init(){
             ToyService.searcher.activated = true;
             $ctrl.filteredList = ToyService.filteredList;
+        }
+        
+        function onInit() {
+            init();
         }
     }
 })();

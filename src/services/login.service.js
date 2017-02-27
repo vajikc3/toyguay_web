@@ -7,14 +7,15 @@
 
     function LoginService(store, $http, $q, $log, CONF, ENDPOINTS) {
         var state = {
-            authenticated : false
+            authenticated : !!store.get('jwt')
         }
 
         /* ==== INTERFACE ==== */
         return {
             state: state,
             doLogin: doLogin,
-            register: register
+            register: register,
+            logout: logout
         }
 
         /* === IMPLEMENTATION === */
@@ -38,6 +39,11 @@
                     })
         }
         
+        function logout(){
+            store.remove('jwt');
+            state.authenticated = false;
+        }
+
         function register(user){
             return $http({
                         method: 'POST',
@@ -46,7 +52,6 @@
                         data: user
                     }).then(function(response){
                         store.set('jwt', response.data.token);
-                        state.authenticated = true;
                         return ({success: true})
                     }).catch(function(error){
                         $log.error("Error del sistema autenticación: ", error);

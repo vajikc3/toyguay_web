@@ -31,17 +31,17 @@
                     <p style="display: table-cell;vertical-align: middle;padding-left: 5px; color:white">
                         <strong>Usuario 1</strong>
                         <br>
-                        <span>99 productos</span>
+                        <span>{{$ctrl.loginState.authenticated}}</span>
                     </p>
                 </div>
             </li>
 
 
             <!-- LOGIN BUTTON -->
-            <li ng-show="!$ctrl.loginData.logged">
-                <a href="/login">Login</a>
+            <li>
+                <a ng-show="!$ctrl.loginState.authenticated" href="/login">Login</a>
+                <a ng-show="$ctrl.loginState.authenticated" ng-click="$ctrl.logout()">Logout</a>
             </li>
-
         </ul>
     </div>
 </nav>

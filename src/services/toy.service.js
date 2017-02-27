@@ -33,9 +33,6 @@
                 .then(function (response) {
                     // Almacena la lista de productos en filteredList.items
                     filteredList.items = response.data.rows;
-                    filteredList.items.forEach(function(toy){
-                        toy.categories.push("default")
-                    })
                     return $q.when(response.data);
                 })
                 .catch(function (err) {
