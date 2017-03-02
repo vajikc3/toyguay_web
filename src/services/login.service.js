@@ -30,8 +30,7 @@
                             "password": password
                         }
                     }).then(function(response){
-                        store.set('jwt', response.data.token);
-                        state.authenticated = true;
+                        updateLoginData(response.data.token)
                         return ({success: true})
                     }).catch(function(error){
                         $log.error("Error del sistema autenticación: ", error);
@@ -40,8 +39,7 @@
         }
         
         function logout(){
-            store.remove('jwt');
-            state.authenticated = false;
+            removeLoginData();
         }
 
         function register(user){
@@ -51,13 +49,25 @@
                         headers: {'Content-Type': 'application/x-www-form-urlencoded'},
                         data: user
                     }).then(function(response){
-                        store.set('jwt', response.data.token);
+                        updateLoginData(response.data.token)
                         return ({success: true})
                     }).catch(function(error){
                         $log.error("Error del sistema autenticación: ", error);
                         return $q.reject(error);
                     })
         }
+
+        function updateLoginData(token){
+            store.set('jwt', token);
+            state.authenticated = true;
+        }
+
+        function removeLoginData(){
+            store.remove('jwt');
+            state.authenticated = false;
+        }
+
+
 
     }
 })();
