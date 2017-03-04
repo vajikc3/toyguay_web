@@ -3,9 +3,9 @@
         .module('toyguay')
         .service('LoginService', LoginService);
 
-    LoginService.$inject = ['store', '$http', '$q', '$log', 'CONF', 'ENDPOINTS']
+    LoginService.$inject = ['store', 'jwtHelper', '$http', '$q', '$log', 'CONF', 'ENDPOINTS']
 
-    function LoginService(store, $http, $q, $log, CONF, ENDPOINTS) {
+    function LoginService(store, jwtHelper, $http, $q, $log, CONF, ENDPOINTS) {
         var state = {
             authenticated : !!store.get('jwt')
         }
@@ -15,7 +15,8 @@
             state: state,
             doLogin: doLogin,
             register: register,
-            logout: logout
+            logout: logout,
+            getJWTData: getJWTData
         }
 
         /* === IMPLEMENTATION === */
@@ -66,6 +67,15 @@
             store.remove('jwt');
             state.authenticated = false;
         }
+
+        function getJWTData(){
+            var jwt = store.get('jwt');
+            if (!jwt) return false;
+            var decodedToken = jwtHelper.decodeToken(jwt);
+            console.log(decodedToken);
+            return decodedToken;
+        }
+
 
 
 
