@@ -6,16 +6,19 @@
             controller: ToyListComponent
         });
 
-    ToyListComponent.$inject = ['$scope', 'ToyService'];
+    ToyListComponent.$inject = ['$scope', 'ToyService', 'UserService'];
 
-    function ToyListComponent($scope, ToyService) {
+    function ToyListComponent($scope, ToyService, UserService) {
         var $ctrl = this;
 
         /* ==== INTERFACE ==== */
 
         $ctrl.$onInit = onInit;
+        $ctrl.getToySeller = getToySeller;
         
+
         init();
+        
         /* ==== IMPLEMENTATION ==== */
 
         function init(){
@@ -26,5 +29,17 @@
         function onInit() {
             init();
         }
+
+        function getToySeller(sellerID) {
+            UserService
+                .getUserData(sellerID)
+                .then(function(toyUser){
+                    console.log("seller", toyUser)
+                    return user;
+                })
+        }
+
+
+
     }
 })();

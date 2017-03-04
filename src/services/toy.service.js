@@ -3,9 +3,9 @@
         .module('toyguay')
         .service('ToyService', ToyService);
 
-    ToyService.$inject = ['$http', '$q', '$log', 'CONF', 'ENDPOINTS']
+    ToyService.$inject = ['$http', '$q', '$log', 'CONF', 'ENDPOINTS', 'UserService']
 
-    function ToyService($http, $q, $log, CONF, ENDPOINTS) {
+    function ToyService($http, $q, $log, CONF, ENDPOINTS, UserService) {
 
         var filteredList = {
             items: null
@@ -47,10 +47,9 @@
                     var toys = response.rows;
                     filteredList.items = toys.filter(function(toy) {
                         var res = applySearchFilter(toy, text)
-                        console.log(res)
-                        return res
+                        return res;
                     })
-                    console.log(filteredList)
+                    filteredList.items = setUserDataToToys(filteredList.items);
                     return $q.when(filteredList)
                 })
                 .catch(function (err) {
@@ -58,6 +57,18 @@
                     return $q.when(filteredList)
                 })
                 
+        }
+
+        function setUserDataToToys(toyList){
+            toyList = toyList.map(function(toy){
+                UserService
+                    .getUserData(toy.seller)
+                    .then(function(sellerData){
+                        toy.seller_data = sellerData
+                        return toy;
+                    });
+            });
+            return toy;
         }
 
         function applySearchFilter(toy, text) {

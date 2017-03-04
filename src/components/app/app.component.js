@@ -1,4 +1,4 @@
-(function() {
+;(function() {
     angular
         .module('toyguay')
         .component('app', {
@@ -24,16 +24,31 @@
             templateUrl : 'src/components/app/app.tmpl.html'
         })
 
-    AppController.$inject = ['LoginService', '$scope'];
+    AppController.$inject = ['LoginService', 'UserService', '$scope'];
     
-    function AppController (LoginService, $scope) {
+    function AppController (LoginService, UserService, $scope) {
         $ctrl = this;
         $ctrl.logout = logout;
         $ctrl.loginState = LoginService.state;
+        $ctrl.user = {};
+
+        init();
+
+        function init(){
+            var userID = LoginService.getJWTData().id;
+            if (userID){
+                UserService
+                    .getUserData(userID)
+                    .then(function(user){
+                    $ctrl.user = user;
+                    $ctrl.user.imageURL = 'https://robohash.org/' + $ctrl.user.nick_name;
+                });
+            }
+        }
 
         function logout() {
             LoginService.logout();
         }
     }
 
-})()
+})();

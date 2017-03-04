@@ -39,6 +39,7 @@
         /* ==== IMPLEMENTATION ==== */
         
         function register(){
+            $ctrl.user.imageURL = 'https://robohash.org/' + $ctrl.user.user;
             $ctrl.registering = true;
             $timeout(function(){
                 LoginService.register($ctrl.user)

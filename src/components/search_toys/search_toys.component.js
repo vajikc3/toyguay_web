@@ -53,7 +53,7 @@
             // Cargamos todos los productos (para las sugerencias del autocompletador)
             function loadAllToys() {
               return ToyService
-                    .getAll()
+                    .search('')
                     .then(function (toys) {
                         $ctrl.toys = toys
                     }) 

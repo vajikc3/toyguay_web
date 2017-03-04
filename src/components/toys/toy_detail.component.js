@@ -23,11 +23,11 @@
         }
 
         function loadToy(id) {
-                return ToyService
-                    .get(id)
-                    .then(function (toy) {
-                        $ctrl.toy = toy;
-                    })
-            }
+            return ToyService
+                .get(id)
+                .then(function (toy) {
+                    $ctrl.toy = toy;
+                })
+        }
     }
 })();
