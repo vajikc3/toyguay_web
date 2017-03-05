@@ -18,7 +18,8 @@
             doLogin: doLogin,
             register: register,
             logout: logout,
-            getTokenData: getTokenData
+            getTokenData: getTokenData,
+            recoverPass: recoverPass
         }
 
         /* === IMPLEMENTATION === */
@@ -114,15 +115,23 @@
             }
         }
 
-        function recoverPass(){
-            UserService
-                .recoverPass(user)
-                .then(function(result){
-                    console.log("recoverPass", result)
-                })
-                .catch(funtion("recoverPass", result){
+        function recoverPass(userOrEmail){
+            var user = {
+                user: userOrEmail,
+                email: userOrEmail
+            }
+            return $http({
+                method: 'POST',
+                url: CONF.API_BASE + ENDPOINTS.RECOVER, 
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                data: user
+            }).then(function(response){
+                return $q.when({success: true})
+            }).catch(function(error){
+                $log.error("Error del sistema recuperación de contraseña: ", error);
+                return $q.reject(error);
+            })
 
-                })
         }
 
     }

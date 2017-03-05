@@ -15,7 +15,6 @@
 
         /* ==== IMPLEMENTATION ==== */
         function getUserData(id) {
-            console.log("getuserdata", id);
             return $http
                 .get(CONF.API_BASE + ENDPOINTS.USERS + id)
                 .then(function (response) {
@@ -37,5 +36,6 @@
             user.imageURL = 'https://robohash.org/' + user.nick_name;
             return user;
         }
+
     }
 })();
