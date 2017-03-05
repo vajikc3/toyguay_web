@@ -35,10 +35,10 @@
                 }
             }).then(function(response){
                 updateLoginData(response.data.token)
-                return {success: true}
+                return $q.when({success: true});
             }).catch(function(error){
                 $log.error("Error del sistema autenticación: ", error);
-                return error;
+                return $q.reject(error);
             })
         }
         

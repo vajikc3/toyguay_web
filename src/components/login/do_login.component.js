@@ -42,6 +42,7 @@
                         }, 1000)
                     })
                     .catch(function(error){
+                        $ctrl.authenticating = false;
                         $ctrl.error = error;
                     })
             }, 1000);
