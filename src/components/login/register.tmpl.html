@@ -28,6 +28,35 @@
                             required>
                 </div>
 
+
+                <!--  ====== LAST NAME ===== -->
+                <div class="form-group">
+                    <label for="inputLastName">Localización</label>
+                    <div class="row">
+                        <div class="col-xs-4">
+                            <input type="text" class="form-control col-xs-4" 
+                                    name="inputLastName"  id="inputLastName" 
+                                    placeholder="Ciudad" 
+                                    ng-model="$ctrl.user.city" 
+                                    required>
+                        </div>
+                        <div class="col-xs-4">
+                            <input type="text" class="form-control col-xs-4" 
+                                    name="inputProvince"  id="inputProvince" 
+                                    placeholder="Provincia" 
+                                    ng-model="$ctrl.user.province" 
+                                    required>
+                        </div>
+                        <div class="col-xs-4">
+                            <input type="text" class="form-control " 
+                                    name="inputCountry"  id="inputCountry" 
+                                    placeholder="País" 
+                                    ng-model="$ctrl.user.country" 
+                                    required>
+                        </div>
+                    </div>
+                </div>
+
                 <!--  ====== USER ===== -->
                 <div class="form-group">
                     <label for="inputNickName">Nombre Usuario</label>
@@ -59,6 +88,15 @@
                 </div>
                 <div class="text-center">
                     <button type="submit" class="btn btn-primary" ng-click="$ctrl.register()">Registrarse</button>
+                    <img src="/assets/images/loading.gif" alt="" width="200px" ng-if="$ctrl.registering">
+                </div>
+
+                 <!--  ====== ERRORS ===== -->
+                <div ng-if="$ctrl.error">
+                    <div uib-alert template-url="node_modules/angular-ui-bootstrap/template/alert/alert.html" 
+                        class="alert-danger">
+                        {{$ctrl.error.data.error}}
+                    </div>
                 </div>
             </form>
         </div>

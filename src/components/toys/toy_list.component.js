@@ -6,21 +6,39 @@
             controller: ToyListComponent
         });
 
-    ToyListComponent.$inject = ['$scope', 'ToyService'];
+    ToyListComponent.$inject = ['$scope', 'ToyService', 'UserService'];
 
-    function ToyListComponent($scope, ToyService) {
+    function ToyListComponent($scope, ToyService, UserService) {
         var $ctrl = this;
 
         /* ==== INTERFACE ==== */
 
         $ctrl.$onInit = onInit;
-        console.log("oninig", $ctrl); 
+        // $ctrl.getSellerData = getSellerData;
+        
+
+        init();
         
         /* ==== IMPLEMENTATION ==== */
-        
-        function onInit() {
+
+        function init(){
             ToyService.searcher.activated = true;
             $ctrl.filteredList = ToyService.filteredList;
         }
+        
+        function onInit() {
+            init();
+        }
+
+        // function getSellerData(sellerID) {
+        //     UserService
+        //         .getUserData(sellerID)
+        //         .then(function(seller){
+        //             return seller;
+        //         })
+        // }
+
+
+
     }
 })();

@@ -8,13 +8,14 @@
                     
                 </div>
                 <div style="height: 0px">
-                    <img class="avatar-img-toy-card avatar-img img-circle" src="https://s3.amazonaws.com/uifaces/faces/twitter/sauro/128.jpg" alt=""> 
+                    <img class="avatar-img-toy-card avatar-img img-circle" ng-src="{{toy.seller_data.imageURL}}" alt=""> 
                 </div>
                 <div class="panel-body toy-card-body">
                     <h1 class="toy-card-title" ng-link="['ToyDetail', {id: toy.id}]" style="cursor: pointer">{{toy.name}}</h1>
                     
                     <p class="toy-card-text" ng-maxlength="10" >
-                     {{toy.description | limitTo: 100 }}{{toy.description.length > 100 ? '...' : ''}}
+                        {{toy.seller_data.nick_name}}
+                        {{toy.description | limitTo: 100 }}{{toy.description.length > 100 ? '...' : ''}}
                      </p>
                 </div>
                 <div class="panel-footer bg-primary-color-b" >

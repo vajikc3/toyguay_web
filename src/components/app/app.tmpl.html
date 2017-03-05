@@ -27,21 +27,20 @@
             <!-- USER DATA -->
             <li ng-show="$ctrl.loginState.authenticated">
                 <div style="display:table">
-                    <img class="avatar-img img-circle" src="https://s3.amazonaws.com/uifaces/faces/twitter/sauro/128.jpg" alt="" style="width:50px;display:table-cell;">
+                    <img class="avatar-img img-circle" ng-src="{{$ctrl.loginState.loggedUserData.imageURL}}" alt="" style="margin:width:44px;display:table-cell;background-color: white">
                     <p style="display: table-cell;vertical-align: middle;padding-left: 5px; color:white">
-                        <strong>Usuario 1</strong>
+                        <strong>{{$ctrl.loginState.loggedUserData.nick_name}}</strong>
                         <br>
-                        <span>99 productos</span>
+                        <a ng-show="$ctrl.loginState.authenticated" ng-click="$ctrl.logout()" style="color:white;display: inline;">Logout</a>
                     </p>
                 </div>
             </li>
 
 
             <!-- LOGIN BUTTON -->
-            <li ng-show="!$ctrl.loginData.logged">
-                <a href="/login">Login</a>
+            <li>
+                <a ng-show="!$ctrl.loginState.authenticated" href="/login" >Login</a>
             </li>
-
         </ul>
     </div>
 </nav>

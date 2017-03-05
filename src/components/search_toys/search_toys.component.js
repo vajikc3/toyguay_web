@@ -6,9 +6,9 @@
             controller: SearchToysComponent
         })
 
-        SearchToysComponent.$inject = ['$log', 'ToyService']
+        SearchToysComponent.$inject = ['$scope', '$log', 'ToyService', 'LoginService']
 
-        function SearchToysComponent($log, ToyService) {
+        function SearchToysComponent($scope, $log, ToyService, LoginService) {
             var $ctrl = this
             // Lista de productos para sugerencias del autocompletador
             $ctrl.toys = loadAllToys();
@@ -22,8 +22,19 @@
             $ctrl.searchTerm = "";
             $ctrl.searcher = ToyService.searcher;
 
+            $ctrl.loginState = LoginService.state;
 
             /* ==== IMPLEMENTATION ==== */
+
+            $scope.$watch(function(){
+                return $ctrl.loginState.authenticated 
+            }, function(newVal, oldVal){
+                console.log("watch", newVal, oldVal);
+                if(newVal !== oldVal){
+                    searchBD();
+                }
+            })
+
 
             // Buscador de sugerencias
             function querySearch (query) {
@@ -52,16 +63,22 @@
 
             // Cargamos todos los productos (para las sugerencias del autocompletador)
             function loadAllToys() {
-              return ToyService
-                    .getAll()
-                    .then(function (toys) {
-                        $ctrl.toys = toys
-                    }) 
+                doSearch('');
             }
 
             // Buscar en BD
             function searchBD () {
-                ToyService.search($ctrl.searchTerm)
+                doSearch($ctrl.searchTerm);
+            }
+
+            function doSearch(term){
+                ToyService
+                    .search(term)
+                    .then(function(toys){
+                        $ctrl.toys = toys;
+                    }).catch(function(err){
+                        $ctrl.toys = [];
+                    });
             }
 
             // Buscar en BD cuando se pulsa Enter

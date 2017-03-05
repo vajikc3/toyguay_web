@@ -5,7 +5,8 @@
             "TOYS": "toys/",
             "CATEGORIES": "categories/",
             "AUTHENTICATE": "users/authenticate",
-            "REGISTER": "users/register"
+            "REGISTER": "users/register",
+            "USERS": "users/"
         })
 
 })();
