@@ -21,6 +21,7 @@
             $ctrl.searchBD = searchBD;
             $ctrl.searchTerm = "";
             $ctrl.searcher = ToyService.searcher;
+            $ctrl.doSearch = doSearch;
 
             $ctrl.loginState = LoginService.state;
 

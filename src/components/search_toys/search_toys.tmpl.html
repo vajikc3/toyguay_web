@@ -12,11 +12,17 @@
                 <li><a class="dropdown-item" href="#">Todas las categorias</a></li>
             </ul>
         </div>
+        <span class="input-group-addon" ng-hide="!$ctrl.searchTerm" ng-click="$ctrl.doSearch($ctrl.searchTerm)">
+            <i class="glyphicon glyphicon-search" ></i>
+        </span>
         <input type="text" 
             class="form-control" 
             placeholder="Search toys"
             ng-model="$ctrl.searchTerm"
             ng-keyup="$ctrl.searchOnKeyUp($event)">
+        <span class="input-group-addon btn-danger" ng-hide="!$ctrl.searchTerm" ng-click="$ctrl.searchTerm = ''; $ctrl.doSearch('')">
+            <i class="glyphicon glyphicon-remove-sign" ></i>
+        </span>
         <div class="input-group-btn">
             <button type="button"
                     class="btn btn-default dropdown-toggle"
