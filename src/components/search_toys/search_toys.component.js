@@ -6,9 +6,9 @@
             controller: SearchToysComponent
         })
 
-        SearchToysComponent.$inject = ['$scope', '$log', 'ToyService', 'LoginService']
+        SearchToysComponent.$inject = ['$scope', '$log', 'ToyService', 'AuthenticationService']
 
-        function SearchToysComponent($scope, $log, ToyService, LoginService) {
+        function SearchToysComponent($scope, $log, ToyService, AuthenticationService) {
             var $ctrl = this
             // Lista de productos para sugerencias del autocompletador
             $ctrl.toys = loadAllToys();
@@ -23,7 +23,7 @@
             $ctrl.searcher = ToyService.searcher;
             $ctrl.doSearch = doSearch;
 
-            $ctrl.loginState = LoginService.state;
+            $ctrl.loginState = AuthenticationService.state;
 
             /* ==== IMPLEMENTATION ==== */
 

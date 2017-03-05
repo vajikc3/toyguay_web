@@ -13,6 +13,11 @@
                      path: '/register',
                      name: 'Register',
                      component: 'register'
+                },
+                {
+                     path: '/recover',
+                     name: 'RecoverPass',
+                     component: 'recoverPass'
                 }
             ],
             template: '<ng-outlet></ng-outlet>'

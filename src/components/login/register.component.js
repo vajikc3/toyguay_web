@@ -7,9 +7,9 @@
             controller: Register
         });
 
-    Register.$inject = ['LoginService', '$timeout']
+    Register.$inject = ['AuthenticationService', '$timeout']
 
-    function Register(LoginService, $timeout) {
+    function Register(AuthenticationService, $timeout) {
 
         var $ctrl = this;
         $ctrl.user = {
@@ -42,10 +42,10 @@
             $ctrl.user.imageURL = 'https://robohash.org/' + $ctrl.user.user;
             $ctrl.registering = true;
             $timeout(function(){
-                LoginService.register($ctrl.user)
+                AuthenticationService.register($ctrl.user)
                     .then(function(response){
                         $ctrl.registering = false;
-                        LoginService
+                        AuthenticationService
                             .doLogin($ctrl.user.user, $ctrl.user.password)
                             .then(function(){
                                 $ctrl.$router.navigateByUrl('/toys/');

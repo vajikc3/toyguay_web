@@ -1,11 +1,11 @@
 (function() {
     angular
         .module('toyguay')
-        .service('LoginService', LoginService);
+        .service('AuthenticationService', AuthenticationService);
 
-    LoginService.$inject = ['store', 'jwtHelper', '$http', '$q', '$log', 'CONF', 'ENDPOINTS', 'UserService']
+    AuthenticationService.$inject = ['store', 'jwtHelper', '$http', '$q', '$log', 'CONF', 'ENDPOINTS', 'UserService']
 
-    function LoginService(store, jwtHelper, $http, $q, $log, CONF, ENDPOINTS, UserService) {
+    function AuthenticationService(store, jwtHelper, $http, $q, $log, CONF, ENDPOINTS, UserService) {
         var state = {
             authenticated : false,
             loggedUserData: {}
@@ -18,7 +18,8 @@
             doLogin: doLogin,
             register: register,
             logout: logout,
-            getTokenData: getTokenData
+            getTokenData: getTokenData,
+            recoverPass: recoverPass
         }
 
         /* === IMPLEMENTATION === */
@@ -34,10 +35,10 @@
                 }
             }).then(function(response){
                 updateLoginData(response.data.token)
-                return {success: true}
+                return $q.when({success: true});
             }).catch(function(error){
                 $log.error("Error del sistema autenticación: ", error);
-                return error;
+                return $q.reject(error);
             })
         }
         
@@ -62,9 +63,7 @@
         }
 
         function updateLoginData(token){
-            console.log("updateLoginData", token);
             store.set('jwt', token);
-            console.log(store.get('jwt'))
             setLoggedUserData()
         }
 
@@ -93,11 +92,9 @@
 
         function setLoggedUserData(){
             var userID = getTokenData().id;
-            console.log("userid", userID, getTokenData())
             UserService
                 .getUserData(userID)
                 .then(function(user){
-                    console.log("loggin user", user)
                     if (!user.imageURL){
                         user = UserService.setAvatarImageHelper(user);
                     }
@@ -106,7 +103,6 @@
                     return "OK"
                 })
                 .catch(function(err){
-                    console.log("loggin user ERR", err)
                     logout();
                     return "KO";
                 });
@@ -118,5 +114,25 @@
                 setLoggedUserData()
             }
         }
+
+        function recoverPass(userOrEmail){
+            var user = {
+                user: userOrEmail,
+                email: userOrEmail
+            }
+            return $http({
+                method: 'POST',
+                url: CONF.API_BASE + ENDPOINTS.RECOVER, 
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                data: user
+            }).then(function(response){
+                return $q.when({success: true})
+            }).catch(function(error){
+                $log.error("Error del sistema recuperación de contraseña: ", error);
+                return $q.reject(error);
+            })
+
+        }
+
     }
 })();
