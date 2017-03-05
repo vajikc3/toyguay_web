@@ -44,10 +44,17 @@
             $timeout(function(){
                 LoginService.register($ctrl.user)
                     .then(function(response){
-                            $ctrl.registering = false;
-                            $ctrl.$router.navigateByUrl('/toys/');
+                        $ctrl.registering = false;
+                        LoginService
+                            .doLogin($ctrl.user.user, $ctrl.user.password)
+                            .then(function(){
+                                $ctrl.$router.navigateByUrl('/toys/');
+                            })
+                            .catch(function(){
+                                $ctrl.$router.navigateByUrl('/login/');
+                            })
                     })
-                    .catch(function(err){
+                    .catch(function(error){
                         $ctrl.error = error;
                     });
             }, 5000);

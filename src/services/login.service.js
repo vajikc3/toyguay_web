@@ -52,10 +52,9 @@
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'},
                 data: user
             }).then(function(response){
-                updateLoginData(response.data.token)
-                    .then(function(user){
-                        return $q.when({success: true})
-                    });
+                // console.log("register response", response);
+                // updateLoginData(response.data.token);
+                return $q.when({success: true})
             }).catch(function(error){
                 $log.error("Error del sistema autenticación: ", error);
                 return $q.reject(error);
@@ -63,7 +62,9 @@
         }
 
         function updateLoginData(token){
+            console.log("updateLoginData", token);
             store.set('jwt', token);
+            console.log(store.get('jwt'))
             setLoggedUserData()
         }
 
@@ -92,10 +93,11 @@
 
         function setLoggedUserData(){
             var userID = getTokenData().id;
-            if (!userID){ $q.reject(false)}
+            console.log("userid", userID, getTokenData())
             UserService
                 .getUserData(userID)
                 .then(function(user){
+                    console.log("loggin user", user)
                     if (!user.imageURL){
                         user = UserService.setAvatarImageHelper(user);
                     }
@@ -104,6 +106,7 @@
                     return "OK"
                 })
                 .catch(function(err){
+                    console.log("loggin user ERR", err)
                     logout();
                     return "KO";
                 });
