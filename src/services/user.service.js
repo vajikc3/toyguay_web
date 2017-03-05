@@ -37,6 +37,5 @@
             user.imageURL = 'https://robohash.org/' + user.nick_name;
             return user;
         }
-
     }
 })();

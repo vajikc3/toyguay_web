@@ -1,11 +1,11 @@
 (function() {
     angular
         .module('toyguay')
-        .service('LoginService', LoginService);
+        .service('AuthenticationService', AuthenticationService);
 
-    LoginService.$inject = ['store', 'jwtHelper', '$http', '$q', '$log', 'CONF', 'ENDPOINTS', 'UserService']
+    AuthenticationService.$inject = ['store', 'jwtHelper', '$http', '$q', '$log', 'CONF', 'ENDPOINTS', 'UserService']
 
-    function LoginService(store, jwtHelper, $http, $q, $log, CONF, ENDPOINTS, UserService) {
+    function AuthenticationService(store, jwtHelper, $http, $q, $log, CONF, ENDPOINTS, UserService) {
         var state = {
             authenticated : false,
             loggedUserData: {}
@@ -62,9 +62,7 @@
         }
 
         function updateLoginData(token){
-            console.log("updateLoginData", token);
             store.set('jwt', token);
-            console.log(store.get('jwt'))
             setLoggedUserData()
         }
 
@@ -93,11 +91,9 @@
 
         function setLoggedUserData(){
             var userID = getTokenData().id;
-            console.log("userid", userID, getTokenData())
             UserService
                 .getUserData(userID)
                 .then(function(user){
-                    console.log("loggin user", user)
                     if (!user.imageURL){
                         user = UserService.setAvatarImageHelper(user);
                     }
@@ -106,7 +102,6 @@
                     return "OK"
                 })
                 .catch(function(err){
-                    console.log("loggin user ERR", err)
                     logout();
                     return "KO";
                 });
@@ -118,5 +113,17 @@
                 setLoggedUserData()
             }
         }
+
+        function recoverPass(){
+            UserService
+                .recoverPass(user)
+                .then(function(result){
+                    console.log("recoverPass", result)
+                })
+                .catch(funtion("recoverPass", result){
+
+                })
+        }
+
     }
 })();
