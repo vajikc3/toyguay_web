@@ -37,7 +37,7 @@
                 })
                 .catch(function (err) {
                     $log.error("Cannot obtain toy list from ToyGuay. Try again later...", err);
-                    return  $q.when([]);
+                    return  $q.reject([]);
                 })
         }
 
@@ -49,36 +49,40 @@
                         var res = applySearchFilter(toy, text)
                         return res;
                     })
-                    filteredList.items = setUserDataToToys(filteredList.items);
-                    return $q.when(filteredList)
+                    return setUserDataToToys(filteredList.items)
+                        .then(function(itemsWithUserData){
+                            filteredList.items = itemsWithUserData;
+                            console.log("filteredList.items", filteredList.items);
+                        });
                 })
                 .catch(function (err) {
                     $log.error("Cannot obtain product data from ToyGuay. Try again later...", err)
-                    return $q.when(filteredList)
+                    filteredList.items = [];
+                    return $q.reject(filteredList)
                 })
                 
         }
 
         function setUserDataToToys(toyList){
+            var toyListPromises = [];
             toyList = toyList.map(function(toy){
-                UserService
-                    .getUserData(toy.seller)
-                    .then(function(sellerData){
-                        toy.seller_data = sellerData
-                        return toy;
-                    });
+                var promise = UserService
+                                .getUserData(toy.seller)
+                                .then(function(sellerData){
+                                    toy.seller_data = sellerData;
+                                    return toy;
+                                });
+                toyListPromises.push(promise);
             });
-            return toy;
+            return $q.all(toyListPromises);
         }
 
         function applySearchFilter(toy, text) {
-            console.log(toy, text);
             var lowercaseQuery = angular.lowercase(text);
             var lowercaseToyName = angular.lowercase(toy.name);
             var lowercaseToyDesc = angular.lowercase(toy.description);
             var comp1 = lowercaseToyName.indexOf(lowercaseQuery) >= 0;
             var comp2 = lowercaseToyDesc.indexOf(lowercaseQuery) >= 0;
-            console.log(comp1, comp2);
             return  comp1 || comp2;
         }
 
@@ -94,8 +98,8 @@
                     $log.error("Cannot obtain product data from ToyGuay. Try again later...", err)
                     return $q.when({})
                 })
-
         }
+
 
     }
 })();

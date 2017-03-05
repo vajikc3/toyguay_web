@@ -8,7 +8,7 @@
                     
                 </div>
                 <div style="height: 0px">
-                    <img class="avatar-img-toy-card avatar-img img-circle" src="https://robohash.org/{{toy.seller_data.nick_name}}" alt=""> 
+                    <img class="avatar-img-toy-card avatar-img img-circle" ng-src="{{toy.seller_data.imageURL}}" alt=""> 
                 </div>
                 <div class="panel-body toy-card-body">
                     <h1 class="toy-card-title" ng-link="['ToyDetail', {id: toy.id}]" style="cursor: pointer">{{toy.name}}</h1>

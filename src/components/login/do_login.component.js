@@ -27,7 +27,6 @@
         /* ==== IMPLEMENTATION ==== */
 
         function onInit(){
-
             ToyService.searcher.activated = false;
         }
 
@@ -37,13 +36,15 @@
                 LoginService
                     .doLogin($ctrl.user, $ctrl.password)
                     .then(function(response){
+                        $timeout(function(){
                             $ctrl.authenticating = false;
                             $ctrl.$router.navigateByUrl('/toys/');
+                        }, 1000)
                     })
                     .catch(function(error){
                         $ctrl.error = error;
                     })
-            }, 5000);
+            }, 1000);
         }
 
 

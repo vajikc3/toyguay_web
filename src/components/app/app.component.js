@@ -21,6 +21,7 @@
                 }
             ],
             controller: AppController,
+            bindings: { $router: '<' },
             templateUrl : 'src/components/app/app.tmpl.html'
         })
 
@@ -28,27 +29,30 @@
     
     function AppController (LoginService, UserService, $scope) {
         $ctrl = this;
-        $ctrl.logout = logout;
         $ctrl.loginState = LoginService.state;
-        $ctrl.user = {};
+        $ctrl.logout = logout;
+
+        $ctrl.$onInit = onInit;
 
         init();
 
+        function onInit(){
+            console.log("oninit");
+        }
         function init(){
-            var userID = LoginService.getJWTData().id;
-            if (userID){
-                UserService
-                    .getUserData(userID)
-                    .then(function(user){
-                    $ctrl.user = user;
-                    $ctrl.user.imageURL = 'https://robohash.org/' + $ctrl.user.nick_name;
-                });
-            }
+            LoginService.refreshState();
+            console.log($ctrl.loginState)
         }
 
-        function logout() {
+        function logout() { 
             LoginService.logout();
         }
+
+        $ctrl.updateUser = function (){
+            $ctrl.user = LoginService.getLoggedUserData();
+            console.log($ctrl.user)
+        }
+
     }
 
 })();

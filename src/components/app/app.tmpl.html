@@ -27,9 +27,9 @@
             <!-- USER DATA -->
             <li ng-show="$ctrl.loginState.authenticated">
                 <div style="display:table">
-                    <img class="avatar-img img-circle" src="{{$ctrl.user.imageURL}}" alt="" style="margin:width:44px;display:table-cell;background-color: white">
+                    <img class="avatar-img img-circle" ng-src="{{$ctrl.loginState.loggedUserData.imageURL}}" alt="" style="margin:width:44px;display:table-cell;background-color: white">
                     <p style="display: table-cell;vertical-align: middle;padding-left: 5px; color:white">
-                        <strong>{{$ctrl.user.nick_name}}</strong>
+                        <strong>{{$ctrl.loginState.loggedUserData.nick_name}}</strong>
                         <br>
                         <a ng-show="$ctrl.loginState.authenticated" ng-click="$ctrl.logout()" style="color:white;display: inline;">Logout</a>
                     </p>

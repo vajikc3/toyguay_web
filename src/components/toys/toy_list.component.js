@@ -14,7 +14,7 @@
         /* ==== INTERFACE ==== */
 
         $ctrl.$onInit = onInit;
-        $ctrl.getToySeller = getToySeller;
+        // $ctrl.getSellerData = getSellerData;
         
 
         init();
@@ -30,14 +30,13 @@
             init();
         }
 
-        function getToySeller(sellerID) {
-            UserService
-                .getUserData(sellerID)
-                .then(function(toyUser){
-                    console.log("seller", toyUser)
-                    return user;
-                })
-        }
+        // function getSellerData(sellerID) {
+        //     UserService
+        //         .getUserData(sellerID)
+        //         .then(function(seller){
+        //             return seller;
+        //         })
+        // }
 
 
 
