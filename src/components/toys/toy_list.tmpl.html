@@ -1,6 +1,4 @@
 <div class=" top-padding toy-list-margin">
-
-
         <div class="toy-card-col col-xs-12 col-sm-6 col-md-4 col-lg-3 toy-card" 
                 ng-repeat="toy in $ctrl.filteredList.items">
             <div class="panel panel-default"  style="overflow: hidden;">
@@ -9,24 +7,20 @@
                 </div>
                 <div style="height: 0px">
                     <img class="avatar-img-toy-card avatar-img img-circle" ng-src="{{toy.seller_data.imageURL}}" alt=""> 
+                    <span class="nick-name-toy-card">{{toy.seller_data.nick_name}}</span>
                 </div>
                 <div class="panel-body toy-card-body">
                     <h1 class="toy-card-title" ng-link="['ToyDetail', {id: toy.id}]" style="cursor: pointer">{{toy.name}}</h1>
                     
                     <p class="toy-card-text" ng-maxlength="10" >
-                        {{toy.seller_data.nick_name}}
                         {{toy.description | limitTo: 100 }}{{toy.description.length > 100 ? '...' : ''}}
                      </p>
                 </div>
                 <div class="panel-footer bg-primary-color-b" >
-                    <span class="label label-default" ng-repeat="category in toy.categories">{{category}}</span>
-                    <span class="label label-primary">{{toy.price | number: 2}} €</span>
+                    <span class="label label-warning" ng-repeat="category in toy.categories">{{category}}</span>
+                    <span class="label label-primary pull-right">{{toy.price | number: 2}} €</span>
                 </div>
             </div>
-
         </div>
-
-
-
 </div>
 

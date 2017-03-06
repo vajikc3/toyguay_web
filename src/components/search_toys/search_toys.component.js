@@ -12,69 +12,60 @@
             var $ctrl = this
             // Lista de productos para sugerencias del autocompletador
             $ctrl.toys = loadAllToys();
-            
+            $ctrl.searchTerm = "";
+            $ctrl.loginState = AuthenticationService.state;
+            $ctrl.selectedCategory = '';
+            $ctrl.categories = [
+                {id:1, name: 'kids'},
+                {id:2, name: 'construction'},
+                {id:3, name: 'playmobil'},
+                {id:4, name: 'home'}
+            ];
+
             /* ==== INTERFACE ==== */
-            $ctrl.querySearch = querySearch;
             $ctrl.searchOnKeyUp = searchOnKeyUp;
             $ctrl.selectedItemChange = selectedItemChange;
-            $ctrl.searchTermChange   = searchTextChange;
-            $ctrl.searchBD = searchBD;
-            $ctrl.searchTerm = "";
+            $ctrl.search = search;
             $ctrl.searcher = ToyService.searcher;
-            $ctrl.doSearch = doSearch;
-
-            $ctrl.loginState = AuthenticationService.state;
+            
+            $ctrl.selectCategory = selectCategory;
+            $ctrl.quitCategoryFilter = quitCategoryFilter;
 
             /* ==== IMPLEMENTATION ==== */
 
             $scope.$watch(function(){
                 return $ctrl.loginState.authenticated 
             }, function(newVal, oldVal){
-                console.log("watch", newVal, oldVal);
                 if(newVal !== oldVal){
-                    searchBD();
+                    search();
                 }
             })
 
-
-            // Buscador de sugerencias
-            function querySearch (query) {
-                if (query) {
-                    var res = $ctrl.toys.filter( function (toy) {
-                        return ToyService.applySearchFilter(toy, query);
-                    })
-                    return res;
-                } else {
-                    return [];
+            /* __==-- SEARCH INPUT --==__ */
+            // Buscar en BD cuando se pulsa Enter
+            function searchOnKeyUp ($event) {
+                if ($event.keyCode === 13){
+                    search()
                 }
             }
-
-            function searchTextChange(text) {
-               // $ctrl.searchTerm = text
-               // if ($ctrl.searchTerm === "" ) {
-               //      loadAllProducts()
-               //      querySearch("")
-               // }
-            }
             
-            // Si seleccionamos un elemento sugerido llamamos a buscar en BD 
-            function selectedItemChange() {
-                searchBD()
-            }
-
             // Cargamos todos los productos (para las sugerencias del autocompletador)
             function loadAllToys() {
-                doSearch('');
+                search();
             }
 
             // Buscar en BD
-            function searchBD () {
-                doSearch($ctrl.searchTerm);
+            function search () {
+                var criteria = {};
+                if ($ctrl.selectedCategory !== ''){
+                    criteria.category = $ctrl.selectedCategory;
+                }
+                doSearch($ctrl.searchTerm, criteria);
             }
 
-            function doSearch(term){
+            function doSearch(term, criteria){
                 ToyService
-                    .search(term)
+                    .search(term, criteria)
                     .then(function(toys){
                         $ctrl.toys = toys;
                     }).catch(function(err){
@@ -82,11 +73,20 @@
                     });
             }
 
-            // Buscar en BD cuando se pulsa Enter
-            function searchOnKeyUp ($event) {
-                if ($event.keyCode === 13){
-                    searchBD()
-                }
+            /* __==--CATEGORIAS--==__ */
+            function quitCategoryFilter(){
+                $ctrl.selectedCategory = '';
+                search();
             }
+            function selectCategory(category) {
+                $ctrl.selectedCategory = category.name;
+                search();
+            }
+
+            // Si seleccionamos un elemento sugerido llamamos a buscar en BD 
+            function selectedItemChange() {
+                search()
+            }
+
         }
 })()

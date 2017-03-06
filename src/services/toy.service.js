@@ -27,9 +27,13 @@
 
         /* ==== IMPLEMENTATION ==== */
 
-        function getAll(){
+        function getAll(criteria){
+            var queryParams = []
+            if (criteria.category) {
+                queryParams.push("category=" + criteria.category);
+            }
             return $http
-                .get(CONF.API_BASE + ENDPOINTS.TOYS)
+                .get(CONF.API_BASE + ENDPOINTS.TOYS + '?' + queryParams.join('&'))
                 .then(function (response) {
                     // Almacena la lista de productos en filteredList.items
                     filteredList.items = response.data.rows;
@@ -41,8 +45,8 @@
                 })
         }
 
-        function search(text) {
-            return getAll()
+        function search(text, criteria) {
+            return getAll(criteria)
                 .then(function (response) {
                     var toys = response.rows;
                     filteredList.items = toys.filter(function(toy) {
