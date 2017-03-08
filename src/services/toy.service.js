@@ -53,11 +53,8 @@
                         var res = applySearchFilter(toy, text)
                         return res;
                     })
-                    return setUserDataToToys(filteredList.items)
-                        .then(function(itemsWithUserData){
-                            filteredList.items = itemsWithUserData;
-                            console.log("filteredList.items", filteredList.items);
-                        });
+                    console.log(filteredList.items);
+                    return $q.when(filteredList.items);
                 })
                 .catch(function (err) {
                     $log.error("Cannot obtain product data from ToyGuay. Try again later...", err)
@@ -65,20 +62,6 @@
                     return $q.reject(filteredList)
                 })
                 
-        }
-
-        function setUserDataToToys(toyList){
-            var toyListPromises = [];
-            toyList = toyList.map(function(toy){
-                var promise = UserService
-                                .getUserData(toy.seller)
-                                .then(function(sellerData){
-                                    toy.seller_data = sellerData;
-                                    return toy;
-                                });
-                toyListPromises.push(promise);
-            });
-            return $q.all(toyListPromises);
         }
 
         function applySearchFilter(toy, text) {

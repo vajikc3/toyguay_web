@@ -6,8 +6,8 @@
                     
                 </div>
                 <div style="height: 0px">
-                    <img class="avatar-img-toy-card avatar-img img-circle" ng-src="{{toy.seller_data.imageURL}}" alt=""> 
-                    <span class="nick-name-toy-card">{{toy.seller_data.nick_name}}</span>
+                    <img class="avatar-img-toy-card avatar-img img-circle" ng-src="{{$ctrl.getSellerAvatar(toy.seller)}}" alt=""> 
+                    <span class="nick-name-toy-card">{{toy.seller.nick_name}}</span>
                 </div>
                 <div class="panel-body toy-card-body">
                     <h1 class="toy-card-title" ng-link="['ToyDetail', {id: toy.id}]" style="cursor: pointer">{{toy.name}}</h1>
