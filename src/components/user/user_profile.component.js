@@ -6,10 +6,16 @@
             controller: UserProfile
         });
 
-    UserProfile.$inject = [];
+    UserProfile.$inject = ['ToyService'];
 
-    function UserProfile() {
+    function UserProfile(ToyService) {
         var $ctrl = this;
 
+
+        init();
+
+        function init(){
+            ToyService.searcher.activated = false;
+        }
     }
 })();

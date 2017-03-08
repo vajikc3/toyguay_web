@@ -14,7 +14,7 @@
         /* ==== INTERFACE ==== */
 
         $ctrl.$onInit = onInit;
-        // $ctrl.getSellerData = getSellerData;
+        $ctrl.getSellerAvatar = getSellerAvatar;
         
 
         init();
@@ -30,15 +30,9 @@
             init();
         }
 
-        // function getSellerData(sellerID) {
-        //     UserService
-        //         .getUserData(sellerID)
-        //         .then(function(seller){
-        //             return seller;
-        //         })
-        // }
-
-
-
+        function getSellerAvatar(user){
+            var userWithAvatar = UserService.setAvatarImageHelper(user);
+            return userWithAvatar.imageURL;
+        }
     }
 })();

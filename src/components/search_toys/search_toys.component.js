@@ -11,8 +11,8 @@
         function SearchToysComponent($scope, $log, ToyService, AuthenticationService) {
             var $ctrl = this
             // Lista de productos para sugerencias del autocompletador
-            $ctrl.toys = loadAllToys();
             $ctrl.searchTerm = "";
+            $ctrl.toys = loadAllToys();
             $ctrl.loginState = AuthenticationService.state;
             $ctrl.selectedCategory = '';
             $ctrl.categories = [
