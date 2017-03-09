@@ -27,6 +27,7 @@
         }
         
         function onInit() {
+            ToyService.getAll();
             init();
         }
 

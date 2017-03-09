@@ -3,13 +3,13 @@
         .module('toyguay')
         .service('AuthenticationService', AuthenticationService);
 
-    AuthenticationService.$inject = ['store', 'jwtHelper', '$http', '$q', '$log', 'CONF', 'ENDPOINTS', 'UserService']
+    AuthenticationService.$inject = ['store', 'jwtHelper', '$http', '$q', '$log', 'CONF', 'ENDPOINTS', 'UserService'];
 
     function AuthenticationService(store, jwtHelper, $http, $q, $log, CONF, ENDPOINTS, UserService) {
         var state = {
             authenticated : false,
             loggedUserData: {}
-        }
+        };
 
         /* ==== INTERFACE ==== */
         return {
@@ -20,28 +20,28 @@
             logout: logout,
             getTokenData: getTokenData,
             recoverPass: recoverPass
-        }
+        };
 
         /* === IMPLEMENTATION === */
         function doLogin(user, password){
             return $http({
                 method: 'POST',
-                url: CONF.API_BASE + ENDPOINTS.AUTHENTICATE, 
+                url: CONF.API_BASE + ENDPOINTS.AUTHENTICATE,
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-                data: { 
-                    "user": user, 
+                data: {
+                    "user": user,
                     "email": user,
                     "password": password
                 }
             }).then(function(response){
-                updateLoginData(response.data.token)
+                updateLoginData(response.data.token);
                 return $q.when({success: true});
             }).catch(function(error){
                 $log.error("Error del sistema autenticación: ", error);
                 return $q.reject(error);
-            })
+            });
         }
-        
+
         function logout(){
             removeLoginData();
         }
@@ -49,22 +49,22 @@
         function register(user){
             return $http({
                 method: 'POST',
-                url: CONF.API_BASE + ENDPOINTS.REGISTER, 
+                url: CONF.API_BASE + ENDPOINTS.REGISTER,
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'},
                 data: user
             }).then(function(response){
                 // console.log("register response", response);
                 // updateLoginData(response.data.token);
-                return $q.when({success: true})
+                return $q.when({success: true});
             }).catch(function(error){
                 $log.error("Error del sistema autenticación: ", error);
                 return $q.reject(error);
-            })
+            });
         }
 
         function updateLoginData(token){
             store.set('jwt', token);
-            setLoggedUserData()
+            setLoggedUserData();
         }
 
         function removeLoginData(){
@@ -100,7 +100,7 @@
                     }
                     state.loggedUserData = user;
                     state.authenticated = true;
-                    return "OK"
+                    return "OK";
                 })
                 .catch(function(err){
                     logout();
@@ -111,7 +111,7 @@
 
         function refreshState(){
             if (isLogged() && !hasLoggedUserData()) {
-                setLoggedUserData()
+                setLoggedUserData();
             }
         }
 
@@ -119,18 +119,18 @@
             var user = {
                 user: userOrEmail,
                 email: userOrEmail
-            }
+            };
             return $http({
                 method: 'POST',
-                url: CONF.API_BASE + ENDPOINTS.RECOVER, 
+                url: CONF.API_BASE + ENDPOINTS.RECOVER,
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'},
                 data: user
             }).then(function(response){
-                return $q.when({success: true})
+                return $q.when({success: true});
             }).catch(function(error){
                 $log.error("Error del sistema recuperación de contraseña: ", error);
                 return $q.reject(error);
-            })
+            });
 
         }
 

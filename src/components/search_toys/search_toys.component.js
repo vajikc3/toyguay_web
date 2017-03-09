@@ -27,7 +27,7 @@
             $ctrl.selectedItemChange = selectedItemChange;
             $ctrl.search = search;
             $ctrl.searcher = ToyService.searcher;
-            
+
             $ctrl.selectCategory = selectCategory;
             $ctrl.quitCategoryFilter = quitCategoryFilter;
 
@@ -48,7 +48,7 @@
                     search()
                 }
             }
-            
+
             // Cargamos todos los productos (para las sugerencias del autocompletador)
             function loadAllToys() {
                 search();

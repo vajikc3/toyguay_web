@@ -12,25 +12,30 @@
         };
 
         var searcher = {
-            activated : false
+            activated : false,
+            criteria : {}
         }
 
         /* ==== INTERFACE ==== */
         return {
+            get: get,
             getAll: getAll,
+            sell: sell,
             filteredList: filteredList,
             applySearchFilter: applySearchFilter,
             search: search,
-            get: get,
             searcher: searcher
         }
 
         /* ==== IMPLEMENTATION ==== */
 
         function getAll(criteria){
-            var queryParams = []
-            if (criteria.category) {
-                queryParams.push("category=" + criteria.category);
+            var queryParams = [];
+            if (!!criteria) {
+                searcher.criteria = criteria;
+            }
+            if (searcher.criteria.category) {
+                queryParams.push("category=" + searcher.criteria.category);
             }
             return $http
                 .get(CONF.API_BASE + ENDPOINTS.TOYS + '?' + queryParams.join('&'))
@@ -87,6 +92,23 @@
                     $log.error("Cannot obtain product data from ToyGuay. Try again later...", err)
                     return $q.when({})
                 })
+        }
+
+        function sell(toy){
+            if (!toy.categories || toy.categories.length === 0) {
+                toy.categories = ['default'].join(',');
+            }
+            return $http({
+                method: 'POST',
+                url: CONF.API_BASE + ENDPOINTS.TOYS,
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                data: toy
+            }).then(function(response){
+                return $q.when({success: true});
+            }).catch(function(error){
+                $log.error("Error del sistema autenticación: ", error);
+                return $q.reject(error);
+            });
         }
 
 
