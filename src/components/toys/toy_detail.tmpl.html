@@ -10,16 +10,18 @@
 <!-- TOY DETAIL CONTAINER -->
 <div class="container">
 
+
     <!-- TOY IMAGES COL-->
      <div class="col-md-6">
-         <div>
-            <img src="{{$ctrl.toy.imageURL}}" alt="" />
+         <div class="panel panel-default toy-description">
+            <div class="toy-detail-image" style="background-image: url({{$ctrl.selectedImage}});">
+            </div>
             <div style="margin: 5px 0" max-width: 250px" style="margin: 10px">
-                <span ng-repeat="image in $ctrl.toy.images" >
-                    <img src="{{image}}" alt="" style="max-height:50px">
+                <span ng-repeat="image in $ctrl.toy.imageURL" >
+                    <img src="{{image}}" alt="" style="max-height:50px" ng-click="$ctrl.selectImage(image)">
                 </span>
             </div>
-             
+
          </div>
      </div>
 
@@ -29,12 +31,13 @@
         <!-- Toy data -->
         <div class="panel panel-default toy-description">
             <div class="panel-body">
-                <p class="price">{{$ctrl.toy.price | number: 2}} €</p>
+                {{$ctrl.toy | json}}
+                <p class="toy-detail-price">{{$ctrl.toy.price | number: 2}} €</p>
                 <h1 class="text-capitalize">{{$ctrl.toy.name}}</h1>
-                <p  class="description">{{$ctrl.toy.description}}</p>
+                <p  class="toy-detail-description">{{$ctrl.toy.description}}</p>
             </div>
             <div class="panel-footer">
-                Categoría
+                <span class="label label-warning" ng-repeat="category in $ctrl.toy.categories">{{category}}</span>
             </div>
         </div>
 
