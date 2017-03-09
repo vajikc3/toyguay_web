@@ -35,9 +35,10 @@
             return $http
                 .get(CONF.API_BASE + ENDPOINTS.TOYS + '?' + queryParams.join('&'))
                 .then(function (response) {
+
                     // Almacena la lista de productos en filteredList.items
                     filteredList.items = response.data.rows;
-                    return $q.when(response.data);
+                    return $q.when(filteredList.items);
                 })
                 .catch(function (err) {
                     $log.error("Cannot obtain toy list from ToyGuay. Try again later...", err);
@@ -49,19 +50,18 @@
             return getAll(criteria)
                 .then(function (response) {
                     var toys = response.rows;
+                    if (!toys) return $q.when([]);
                     filteredList.items = toys.filter(function(toy) {
                         var res = applySearchFilter(toy, text)
                         return res;
                     })
-                    console.log(filteredList.items);
                     return $q.when(filteredList.items);
                 })
                 .catch(function (err) {
                     $log.error("Cannot obtain product data from ToyGuay. Try again later...", err)
                     filteredList.items = [];
-                    return $q.reject(filteredList)
+                    return $q.reject(filteredList.items)
                 })
-                
         }
 
         function applySearchFilter(toy, text) {
@@ -79,7 +79,9 @@
             return $http
                 .get(CONF.API_BASE + ENDPOINTS.TOYS + id)
                 .then(function (response) {
-                    return $q.when(response.data)
+                    // BAckend Devuelve el objeto toy dentro de un objeto error
+                    //    --> cuando se corrija se debería de volvera poner `return $q.when(response.data);`
+                    return $q.when(response.data.error);
                 })
                 .catch(function (err) {
                     $log.error("Cannot obtain product data from ToyGuay. Try again later...", err)
