@@ -10,7 +10,7 @@
                     <span class="nick-name-toy-card">{{toy.seller.nick_name}}</span>
                 </div>
                 <div class="panel-body toy-card-body">
-                    <h1 class="toy-card-title" ng-link="['ToyDetail', {id: toy.id}]" style="cursor: pointer">{{toy.name}}</h1>
+                    <h1 class="toy-card-title" ng-link="['ToyDetail', {id: toy._id}]" style="cursor: pointer">{{toy.name}}</h1>
                     
                     <p class="toy-card-text" ng-maxlength="10" >
                         {{toy.description | limitTo: 100 }}{{toy.description.length > 100 ? '...' : ''}}
