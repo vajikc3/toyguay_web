@@ -6,15 +6,34 @@
             controller: ToyListComponent
         });
 
-    ToyListComponent.$inject = ['ToyService'];
+    ToyListComponent.$inject = ['$scope', 'ToyService', 'UserService'];
 
-    function ToyListComponent(ToyService) {
+    function ToyListComponent($scope, ToyService, UserService) {
         var $ctrl = this;
 
-        $ctrl.$onInit = function() {
-            $ctrl.filteredList = ToyService.filteredList;
-            
+        /* ==== INTERFACE ==== */
 
+        $ctrl.$onInit = onInit;
+        $ctrl.getSellerAvatar = getSellerAvatar;
+        
+
+        init();
+        
+        /* ==== IMPLEMENTATION ==== */
+
+        function init(){
+            ToyService.searcher.activated = true;
+            $ctrl.filteredList = ToyService.filteredList;
+        }
+        
+        function onInit() {
+            ToyService.getAll();
+            init();
+        }
+
+        function getSellerAvatar(user){
+            var userWithAvatar = UserService.setAvatarImageHelper(user);
+            return userWithAvatar.imageURL;
         }
     }
 })();

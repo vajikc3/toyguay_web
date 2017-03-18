@@ -1,0 +1,46 @@
+<div class="container top-padding">
+
+
+
+    <div class="col-md-6">
+        <div class="panel panel-default toy-description">
+            <div class="panel-body">
+                <form name="sellToyForm">
+                    {{}}
+                    <div class="form-group">
+                        <label for="nombre">Nombre</label>
+                        <input type="text" class="form-control" id="nombre" placeholder="Nombre del Juguete" ng-model="$ctrl.toy.name">
+                    </div>
+                    <div class="form-group">
+                        <label for="descripcion">Descripción</label>
+                        <textarea type="text" class="form-control" id="descripcion" placeholder="Descripción" rows="3" ng-model="$ctrl.toy.description"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label class="sr-only" for="exampleInputAmount">Precio</label>
+                        <div class="input-group col-xs-4">
+                            <input type="text" class="form-control" id="exampleInputAmount" placeholder="Amount" ng-model="$ctrl.toy.price">
+                            <div class="input-group-addon">€</div>
+                        </div>
+                    </div>
+                    <span class="label label-warning" ng-repeat="category in $ctrl.toy.categories">{{category}}</span>
+                </form>
+            </div>
+            <div class="panel-footer">
+                <button type="submit" class="btn btn-primary" ng-click="$ctrl.sellToy($ctrl.toy)">Poner a la Venta</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+    <div class="panel panel-default toy-description">
+            <div class="panel-body">
+                <img class="col-md-6" src="http://placehold.it/250x250?text=Upload Photo" alt="">
+                <img class="col-md-6" src="http://placehold.it/250x250?text=Upload Photo" alt="">
+                <img class="col-md-6" src="http://placehold.it/250x250?text=Upload Photo" alt="">
+                <img class="col-md-6" src="http://placehold.it/250x250?text=Upload Photo" alt="">
+            </div>
+        </div>
+
+    </div>
+
+</div>

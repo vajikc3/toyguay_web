@@ -1,22 +1,29 @@
-<form id="search" class="form-inline form-centered my-2 my-lg-0">
+<form id="search" class="form-inline form-centered" ng-if="$ctrl.searcher.activated">
     <div class="input-group">
         <div class="input-group-btn">
             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Categoría <span class="caret">
+                Categoría <span class="label label-default">{{$ctrl.selectedCategory}}</span> <span class="caret">
             </button>
             <ul class="dropdown-menu dropdown-menu-left">
-                <li><a class="dropdown-item" href="#">Categoría 1</a></li>
-                <li><a class="dropdown-item" href="#">Categoría 2</a></li>
-                <li><a class="dropdown-item" href="#">Categoría 3</a></li>
-                <li role="separator" class="divider"></li>
-                <li><a class="dropdown-item" href="#">Todas las categorias</a></li>
+                <li ng-repeat="category in $ctrl.categories">
+                    <a class="dropdown-item text-left" href="#" ng-click="$ctrl.selectCategory(category)">{{category.name}}</a>
+                </li>
+                <li role="separator" class="divider" ></li>
+                
+                <li><a class="dropdown-item" href="#" ng-click="$ctrl.quitCategoryFilter()">Quitar filtro categoria</a></li>
             </ul>
         </div>
+        <span class="input-group-addon" ng-hide="!$ctrl.searchTerm" ng-click="$ctrl.search()">
+            <i class="glyphicon glyphicon-search" ></i>
+        </span>
         <input type="text" 
             class="form-control" 
             placeholder="Search toys"
             ng-model="$ctrl.searchTerm"
             ng-keyup="$ctrl.searchOnKeyUp($event)">
+        <span class="input-group-addon btn-danger" ng-hide="!$ctrl.searchTerm" ng-click="$ctrl.searchTerm = ''; $ctrl.search()">
+            <i class="glyphicon glyphicon-remove-sign" ></i>
+        </span>
         <div class="input-group-btn">
             <button type="button"
                     class="btn btn-default dropdown-toggle"

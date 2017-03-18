@@ -3,64 +3,78 @@
         .module('toyguay')
         .service('ToyService', ToyService);
 
-    ToyService.$inject = ['$http', '$q', '$log', 'CONF']
+    ToyService.$inject = ['$http', '$q', '$log', 'CONF', 'ENDPOINTS', 'UserService']
 
-    function ToyService($http, $q, $log, CONF) {
+    function ToyService($http, $q, $log, CONF, ENDPOINTS, UserService) {
 
         var filteredList = {
             items: null
         };
 
+        var searcher = {
+            activated : false,
+            criteria : {}
+        }
+
         /* ==== INTERFACE ==== */
         return {
+            get: get,
             getAll: getAll,
+            sell: sell,
             filteredList: filteredList,
             applySearchFilter: applySearchFilter,
             search: search,
-            get: get
+            searcher: searcher
         }
 
         /* ==== IMPLEMENTATION ==== */
-        function getAll(){
+
+        function getAll(criteria){
+            var queryParams = [];
+            if (!!criteria) {
+                searcher.criteria = criteria;
+            }
+            if (searcher.criteria.category) {
+                queryParams.push("category=" + searcher.criteria.category);
+            }
             return $http
-                .get(CONF.API_BASE + CONF.API_ENDPOINT_TOYS)
+                .get(CONF.API_BASE + ENDPOINTS.TOYS + '?' + queryParams.join('&'))
                 .then(function (response) {
+
                     // Almacena la lista de productos en filteredList.items
-                    filteredList.items = response.data;
-                    return $q.when(response.data);
+                    filteredList.items = response.data.rows;
+                    return $q.when(filteredList.items);
                 })
                 .catch(function (err) {
                     $log.error("Cannot obtain toy list from ToyGuay. Try again later...", err);
-                    return  $q.when([]);
+                    return  $q.reject([]);
                 })
         }
 
-        function search(text) {
-            return getAll()
-                .then(function (toys) {
+        function search(text, criteria) {
+            return getAll(criteria)
+                .then(function (response) {
+                    var toys = response.rows;
+                    if (!toys) return $q.when([]);
                     filteredList.items = toys.filter(function(toy) {
                         var res = applySearchFilter(toy, text)
-                        console.log(res)
-                        return res
+                        return res;
                     })
-                    console.log(filteredList)
-                    return $q.when(filteredList)
+                    return $q.when(filteredList.items);
                 })
                 .catch(function (err) {
                     $log.error("Cannot obtain product data from ToyGuay. Try again later...", err)
-                    return $q.when(filteredList)
+                    filteredList.items = [];
+                    return $q.reject(filteredList.items)
                 })
-                
         }
 
         function applySearchFilter(toy, text) {
-            console.log(toy, text);
             var lowercaseQuery = angular.lowercase(text);
             var lowercaseToyName = angular.lowercase(toy.name);
             var lowercaseToyDesc = angular.lowercase(toy.description);
             var comp1 = lowercaseToyName.indexOf(lowercaseQuery) >= 0;
             var comp2 = lowercaseToyDesc.indexOf(lowercaseQuery) >= 0;
-            console.log(comp1, comp2);
             return  comp1 || comp2;
         }
 
@@ -68,16 +82,35 @@
         function get(id) {
             if (!id) return $q.reject({error:"Falta ID de producto"})
             return $http
-                .get(CONF.API_BASE + CONF.API_ENDPOINT_TOYS + id)
+                .get(CONF.API_BASE + ENDPOINTS.TOYS + id)
                 .then(function (response) {
-                    return $q.when(response.data)
+                    // BAckend Devuelve el objeto toy dentro de un objeto error
+                    //    --> cuando se corrija se debería de volvera poner `return $q.when(response.data);`
+                    return $q.when(response.data.error);
                 })
                 .catch(function (err) {
                     $log.error("Cannot obtain product data from ToyGuay. Try again later...", err)
                     return $q.when({})
                 })
-
         }
+
+        function sell(toy){
+            if (!toy.categories || toy.categories.length === 0) {
+                toy.categories = ['default'].join(',');
+            }
+            return $http({
+                method: 'POST',
+                url: CONF.API_BASE + ENDPOINTS.TOYS,
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                data: toy
+            }).then(function(response){
+                return $q.when({success: true});
+            }).catch(function(error){
+                $log.error("Error del sistema autenticación: ", error);
+                return $q.reject(error);
+            });
+        }
+
 
     }
 })();

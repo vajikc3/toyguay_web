@@ -1,0 +1,32 @@
+<div class="container top-padding">
+    <div class="col-md-3"></div>
+    <div class="panel col-md-6 bg-primary-color">
+        <div class="panel-body">
+            <form name="loginForm">
+                <div style="text-align: center;">
+                    <img src="/assets/images/toyguay_logo_lg.png" height="200px" alt="">
+                    <h1>ToyGuay</h1>
+                </div>
+
+                <!--  ====== USER/EMAIL ===== -->
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Introduce tu Usuario o Email para recuperar la contraseña</label>
+                    <input type="text" class="form-control" name="inputUser" id="inputUser" placeholder="Usuario/Email" ng-model="$ctrl.userOrEmail" required >
+                </div>
+                <!--  ====== RECOVER BUTTON ===== -->
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary" ng-click="$ctrl.recover()">Recibir email con nueva contraseña</button>
+                    <img src="/assets/images/loading.gif" alt="" width="200px" ng-if="$ctrl.recovering">
+                </div>
+                <!--  ====== ERRORS ===== -->
+                <div ng-if="$ctrl.error">
+                    <div uib-alert template-url="node_modules/angular-ui-bootstrap/template/alert/alert.html" 
+                        class="alert-danger">
+                        {{$ctrl.error.data.error}}
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="col-md-3"></div>
+</div>

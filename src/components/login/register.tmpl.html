@@ -1,18 +1,105 @@
 <div class="container top-padding">
     <div class="col-md-3"></div>
-    <form class="col-md-6">
-        <h1>ToyGuay</h1>
-        <div class="form-group">
-            <label for="exampleInputEmail1">Usuario</label>
-            <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
+    <div class="panel col-md-6 bg-primary-color" >
+        <div class="panel-body">
+            <form name="registerForm">
+                <div style="text-align: center;">
+                    <img src="/assets/images/toyguay_logo_lg.png" height="200px" alt="">
+                    <h1>Registro</h1>
+                </div>
+
+                <!--  ====== FIRST NAME ===== -->
+                <div class="form-group">
+                    <label for="inputFirstName">Nombre</label>
+                    <input type="text" class="form-control" 
+                            name="inputFirstName"  id="inputFirstName" 
+                            placeholder="Nombre" 
+                            ng-model="$ctrl.user.first_name" 
+                            required>
+                </div>
+
+                <!--  ====== LAST NAME ===== -->
+                <div class="form-group">
+                    <label for="inputLastName">Apellido</label>
+                    <input type="text" class="form-control" 
+                            name="inputLastName"  id="inputLastName" 
+                            placeholder="Apellido" 
+                            ng-model="$ctrl.user.last_name" 
+                            required>
+                </div>
+
+
+                <!--  ====== LAST NAME ===== -->
+                <div class="form-group">
+                    <label for="inputLastName">Localización</label>
+                    <div class="row">
+                        <div class="col-xs-4">
+                            <input type="text" class="form-control col-xs-4" 
+                                    name="inputLastName"  id="inputLastName" 
+                                    placeholder="Ciudad" 
+                                    ng-model="$ctrl.user.city" 
+                                    required>
+                        </div>
+                        <div class="col-xs-4">
+                            <input type="text" class="form-control col-xs-4" 
+                                    name="inputProvince"  id="inputProvince" 
+                                    placeholder="Provincia" 
+                                    ng-model="$ctrl.user.province" 
+                                    required>
+                        </div>
+                        <div class="col-xs-4">
+                            <input type="text" class="form-control " 
+                                    name="inputCountry"  id="inputCountry" 
+                                    placeholder="País" 
+                                    ng-model="$ctrl.user.country" 
+                                    required>
+                        </div>
+                    </div>
+                </div>
+
+                <!--  ====== USER ===== -->
+                <div class="form-group">
+                    <label for="inputNickName">Nombre Usuario</label>
+                    <input type="text" class="form-control" 
+                            name="inputNickName"  id="inputNickName" 
+                            placeholder="Alias o nombre de usuario" 
+                            ng-model="$ctrl.user.user" 
+                            required>
+                </div>
+
+
+                <!--  ====== EMAIL ===== -->
+                <div class="form-group">
+                
+                    <label for="inputEmail">Email</label>
+                    <input type="email" class="form-control" 
+                            name="inputEmail"  id="inputEmail" 
+                            placeholder="Correo electrónico" 
+                            ng-model="$ctrl.user.email" 
+                            required>
+                </div>
+
+                <!--  ====== PASSWORD ===== -->
+                <div class="form-group">
+                    <label for="inputPassword">Contraseña</label>
+                    <input type="password" class="form-control" id="inputPassword" placeholder="Contraseña" ng-model="$ctrl.user.password" required>
+                    <p></p>
+                    <input type="password" class="form-control" id="inputRepPassword" placeholder="Repetir Contraseña" ng-model="$ctrl.user.password_repeat" required>
+                </div>
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary" ng-click="$ctrl.register()">Registrarse</button>
+                    <img src="/assets/images/loading.gif" alt="" width="200px" ng-if="$ctrl.registering">
+                </div>
+
+                 <!--  ====== ERRORS ===== -->
+                <div ng-if="$ctrl.error">
+                    <div uib-alert template-url="node_modules/angular-ui-bootstrap/template/alert/alert.html" 
+                        class="alert-danger">
+                        {{$ctrl.error.data.error}}
+                    </div>
+                </div>
+            </form>
         </div>
-        <div class="form-group">
-            <label for="exampleInputPassword1">Contraseña</label>
-            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-        </div>
-        <div class="text-center">
-            <button type="submit" class="btn btn-primary">Registrarse</button>
-        </div>
-    </form>
+    </div>
     <div class="col-md-3"></div>
 </div>
