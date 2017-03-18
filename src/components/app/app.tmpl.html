@@ -9,22 +9,22 @@
       </button>
       <a class="navbar-brand navbar-left" href="/"><img src="/assets/images/toyguay_logo.png" height="50px" alt="">ToyGuay</a>
     </div>
-    
+
    <search-toys class="navbar-form navbar-center"></search-toys>
-    
+
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-        
+
         <!-- MENU OPTIONS -->
         <ul class="nav navbar-nav navbar-right">
             <!-- USER DATA -->
             <li  class="dropdown" ng-show="$ctrl.loginState.authenticated">
                 <div style="display:table" class="dropdown-toggle" data-toggle="dropdown">
-                    <img class="avatar-img img-circle" 
-                         ng-src="{{$ctrl.loginState.loggedUserData.imageURL}}" 
-                         alt="" 
+                    <img class="avatar-img img-circle"
+                         ng-src="{{$ctrl.loginState.loggedUserData.imageURL}}"
+                         alt=""
                          style="margin:width:44px;display:table-cell;background-color: white">
                     <p style="display: table-cell;vertical-align: middle;padding-left: 5px; color:white">
-                        <strong>{{$ctrl.loginState.loggedUserData.nick_name}}</strong>
+                        <strong>{{$ctrl.loginState.loggedUserData.nick_name}}</strong><span class="caret"></span>
                         <br>
                         <a ng-show="$ctrl.loginState.authenticated" ng-click="$ctrl.logout()" style="color:white;display: inline;">Logout</a>
                     </p>

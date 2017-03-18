@@ -3,6 +3,7 @@
         .module('toyguay')
         .component('toyDetail', {
             templateUrl: 'src/components/toys/toy_detail.tmpl.html',
+            bindings: { $router: '<' },
             controller: ToyDetailComponent
         });
 
@@ -26,9 +27,17 @@
             return ToyService
                 .get(id)
                 .then(function (toy) {
-                    console.log("toy", toy)
+                    console.log("loadtoy toy", toy)
                     $ctrl.toy = toy;
                     if (toy.imageURL[0]) $ctrl.selectedImage = toy.imageURL[0];
+                })
+                .catch(function(err){
+                    console.log("loadtoy err", err);
+                    if (err.code === 403) {
+                        $ctrl.$router.navigateByUrl('/login/')
+                    } else {
+                        $ctrl.$router.navigateByUrl('/toys/')
+                    }
                 })
         }
 

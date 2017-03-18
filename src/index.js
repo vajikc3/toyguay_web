@@ -5,7 +5,9 @@
             'ui.bootstrap',
             'angular-jwt',
             'angular-storage',
-            'ngMessages'
+            'ngMessages',
+            'ngLodash',
+            'azureBlobUpload'
         ])
 
     /* === CONFIG === */
@@ -16,7 +18,7 @@
 
             // Configuración URLENCODE para enviar objetos json vía $http.post
             $httpProvider.defaults.transformRequest = function(data){
-                if (data === undefined) {
+                if (data === undefined || data instanceof Blob) {
                     return data;
                 }
                 return $.param(data);

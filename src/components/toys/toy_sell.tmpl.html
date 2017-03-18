@@ -22,7 +22,21 @@
                             <div class="input-group-addon">€</div>
                         </div>
                     </div>
-                    <span class="label label-warning" ng-repeat="category in $ctrl.toy.categories">{{category}}</span>
+                    <!-- Single button -->
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Añadir Categoría <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-left">
+                            <li ng-repeat="category in $ctrl.categories | orderBy:'name'">
+                                <a class="dropdown-item text-left" href="#" ng-click="$ctrl.addCategory(category)">{{category.name}}</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <image-selector image-selected="$ctrl.uploadImage(file)"></image-selector>
+                    <span class="label label-warning" ng-repeat="category in $ctrl.toy.categories | orderBy:'name'">
+                        <span ng-click="$ctrl.removeCategoryFromToy(category)" style="cursor: pointer;"><i class="glyphicon glyphicon-remove"></i></span> {{category.name}}
+                    </span>
                 </form>
             </div>
             <div class="panel-footer">

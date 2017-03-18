@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html> -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -13,11 +13,13 @@
     <script src="node_modules/angular-messages/angular-messages.js" ></script>
     <script src="node_modules/ngcomponentrouter/angular_1_router.js"></script>
 
- 
+
     <!-- OTRAS LIBRERIAS ANGULAR-->
     <script src="node_modules/angular-storage/dist/angular-storage.js" type="text/javascript" charset="utf-8"></script>
     <script src="node_modules/angular-jwt/dist/angular-jwt.js" type="text/javascript"> </script>
+    <script src="node_modules/ng-lodash/build/ng-lodash.min.js" type="text/javascript"> </script>
 
+    <script src="assets/azure-blob-upload.js" type="text/javascript" charset="utf-8"></script>
     <!-- BOOTSTRAP -->
     <script src="/node_modules/jquery/dist/jquery.slim.min.js"></script>
     <script src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
@@ -28,19 +30,20 @@
     <script src="src/conf.js"></script>
     <script src="src/conf_endpoints.js"></script>
 
-    
+
 
     <!-- SERVICES -->
     <script src="src/services/toy.service.js"></script>
     <script src="src/services/authentication.service.js"></script>
     <script src="src/services/user.service.js"></script>
+    <script src="src/services/category.service.js"></script>
 
     <!-- COMPONENTS -->
     <script src="src/components/toys/toys.component.js"></script>
     <script src="src/components/toys/toy_list.component.js"></script>
     <script src="src/components/toys/toy_detail.component.js"></script>
     <script src="src/components/toys/toy_sell.component.js"></script>
-    
+
     <script src="src/components/user/user.component.js"></script>
     <script src="src/components/user/user_notifications.component.js"></script>
     <script src="src/components/user/user_profile.component.js"></script>
@@ -48,8 +51,10 @@
     <script src="src/components/user/user_selling.component.js"></script>
     <script src="src/components/user/user_sold.component.js"></script>
 
+    <!-- DIRECTIVES -->
+    <script src="src/directives/image_selector.directive.js"></script>
 
-    
+
     <script src="src/components/search_toys/search_toys.component.js"></script>
 
     <script src="src/components/login/login.component.js"></script>

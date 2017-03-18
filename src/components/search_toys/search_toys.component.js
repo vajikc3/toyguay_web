@@ -6,21 +6,16 @@
             controller: SearchToysComponent
         })
 
-        SearchToysComponent.$inject = ['$scope', '$log', 'ToyService', 'AuthenticationService']
+        SearchToysComponent.$inject = ['$scope', '$log', 'ToyService', 'CategoryService', 'AuthenticationService']
 
-        function SearchToysComponent($scope, $log, ToyService, AuthenticationService) {
+        function SearchToysComponent($scope, $log, ToyService, CategoryService, AuthenticationService) {
             var $ctrl = this
             // Lista de productos para sugerencias del autocompletador
             $ctrl.searchTerm = "";
             $ctrl.toys = loadAllToys();
             $ctrl.loginState = AuthenticationService.state;
             $ctrl.selectedCategory = '';
-            $ctrl.categories = [
-                {id:1, name: 'kids'},
-                {id:2, name: 'construction'},
-                {id:3, name: 'playmobil'},
-                {id:4, name: 'home'}
-            ];
+            $ctrl.categories = CategoryService.getAll();
 
             /* ==== INTERFACE ==== */
             $ctrl.searchOnKeyUp = searchOnKeyUp;
@@ -44,6 +39,7 @@
             /* __==-- SEARCH INPUT --==__ */
             // Buscar en BD cuando se pulsa Enter
             function searchOnKeyUp ($event) {
+                console.log("searchOnKeyUp")
                 if ($event.keyCode === 13){
                     search()
                 }

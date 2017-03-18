@@ -19,9 +19,9 @@
         $ctrl.error = null;
 
         /* ==== INTERFACE ==== */
-        
+
         $ctrl.doLogin = doLogin;
-        
+
         $ctrl.$onInit = onInit;
 
         /* ==== IMPLEMENTATION ==== */
