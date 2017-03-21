@@ -108,6 +108,29 @@
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'},
                 data: toy
             }).then(function(response){
+                //Guardar las imagenes
+                var imagePromises = [];
+                toy.images.forEach(function(imageURL){
+                    imagePromises.push(saveImage(imageURL, response.data.toy._id));
+                })
+                $q.all(imagePromises).then(function(){
+                    return $q.when({success: true});
+                })
+            }).catch(function(error){
+                $log.error("Error del sistema autenticación: ", error);
+                return $q.reject(error);
+            });
+        }
+        function saveImage(imageURL, toyid){
+            return $http({
+                method: 'POST',
+                url: CONF.API_BASE + ENDPOINTS.IMAGES,
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                data: {
+                    url: imageURL,
+                    toyid: toyid
+                }
+            }).then(function(response){
                 return $q.when({success: true});
             }).catch(function(error){
                 $log.error("Error del sistema autenticación: ", error);
@@ -116,25 +139,16 @@
         }
 
         function uploadImage(file){
-            console.log("llega");
-            return azureBlob.upload({
-              baseUrl: 'https://toyguay.blob.core.windows.net/toyguay-image-container/',// baseUrl for blob file uri (i.e. http://<accountName>.blob.core.windows.net/<container>/<blobname>),
-              sasToken: '?sv=2016-05-31&ss=b&srt=sco&sp=rwdlac&se=2017-05-30T23:10:02Z&st=2017-03-12T16:10:02Z&spr=https,http&sig=m4iDUx39YwN2Md%2FTf8XKakYIB%2F2shegPWBbY1yU9UfU%3D',// Shared access signature querystring key/value prefixed with ?,
-              file: file, // File object using the HTML5 File API,
-              progress: function(){console.log("progress")},// progress callback function,
-              complete: function(response){console.log("complete");$q.when(response)},// complete callback function,
-              error: function(){console.log("error")},// error callback function,
-              blockSize: 1024// Use this to override the DefaultBlockSize,
-            })
-            // return $http.put("https://toyguay.blob.core.windows.net/?sv=", 
-            //                 file, {headers:"Authorization": })
-            //     .then(function(response){
-            //         return $q.when(response);
-            //     })
-            //     .catch(function(err){
-                //     console.log("error azure", err);
-                //     return $q.reject(err);
-                // })
+            return $http
+                .post(CONF.AZURE_IMAGES_API, file,{headers: {'Content-Type': undefined}})
+                .then(function(response){
+                    var url = CONF.AZURE_IMAGES_BASE + response.data.result.name;
+                    return $q.when(url);
+                })
+                .catch(function(err){
+                    console.log("error azure", err);
+                    return $q.reject(err);
+                })
         }
 
 
