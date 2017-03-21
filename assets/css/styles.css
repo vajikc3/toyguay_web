@@ -172,4 +172,12 @@ p.description {
     margin-top:5px;
     margin-bottom:5px;
 }
+
+ol.breadcrumb {
+    background-color: #ffbe00;
+}
+
+ol.breadcrumb li.active{
+    color: black;
+    font-weight: bold;
 }
