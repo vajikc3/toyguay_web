@@ -40,10 +40,8 @@
             </div>
         </div>
 
-        <!-- Google Map -->
-        <div class="panel panel-default toy-description" style="height: 200px; overflow: hidden;"">
-            <img src="https://maps.googleapis.com/maps/api/staticmap?center=Brooklyn+Bridge,New+York,NY&zoom=13&size=600x300&maptype=roadmap&markers=color:blue%7Clabel:S%7C40.702147,-74.015794&markers=color:green%7Clabel:G%7C40.711614,-74.012318&markers=color:red%7Clabel:C%7C40.718217,-73.998284&key=AIzaSyBRCugm5yxQvXvFjJ6wLfbcKJe14_m9-Ak" alt="" />
-        </div>
+        <!-- Map -->
+        <leaflet defaults="defaults" lf-center="$ctrl.center" markers="$ctrl.markers" height="200px" width="100%"></leaflet>
 
         <!-- User data -->
             <div style="display:table">

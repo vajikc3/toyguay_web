@@ -7,7 +7,8 @@
             'angular-storage',
             'ngMessages',
             'ngLodash',
-            'azureBlobUpload'
+            'azureBlobUpload',
+            'ui-leaflet'
         ])
 
     /* === CONFIG === */
