@@ -8,7 +8,8 @@
             'ngMessages',
             'ngLodash',
             'azureBlobUpload',
-            'ui-leaflet'
+            'ui-leaflet',
+            'geolocation'
         ])
 
     /* === CONFIG === */

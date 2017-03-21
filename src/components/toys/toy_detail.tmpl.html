@@ -36,7 +36,7 @@
                 <p ng-if="$ctrl.toy.state=='selling'" class="toy-detail-state"><strong>En venta</strong> desde {{$ctrl.getLocaleDate($ctrl.toy.createdAt)}}</p>
             </div>
             <div class="panel-footer">
-                <span class="label label-warning" ng-repeat="category in $ctrl.toy.categories">{{category}}</span>
+                <span class="label label-warning" ng-repeat="category in $ctrl.toy.categories">{{$ctrl.getCategoryByName(category).name_es}}</span>
             </div>
         </div>
 

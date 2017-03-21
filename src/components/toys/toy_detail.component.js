@@ -7,9 +7,9 @@
             controller: ToyDetailComponent
         });
 
-    ToyDetailComponent.$inject = ['ToyService', 'UserService']
+    ToyDetailComponent.$inject = ['ToyService', 'UserService', 'CategoryService']
 
-    function ToyDetailComponent(ToyService, UserService) {
+    function ToyDetailComponent(ToyService, UserService, CategoryService) {
         var $ctrl = this;
         $ctrl.toy = {};
         $ctrl.seller = {};
@@ -21,6 +21,7 @@
         this.$routerOnActivate = routerOnActivate;
         $ctrl.selectImage = selectImage;
         $ctrl.getLocaleDate = getLocaleDate;
+        $ctrl.getCategoryByName = getCategoryByName;
 
         /* ==== IMPLEMENTATION ==== */
         function routerOnActivate(payload) {
@@ -77,6 +78,10 @@
         function getLocaleDate(dateStr){
              var dateObj = new Date(dateStr)
              return dateObj.toLocaleDateString()
+        }
+
+        function getCategoryByName(categoryName){
+            return CategoryService.getCategoryByName(categoryName);
         }
     }
 })();

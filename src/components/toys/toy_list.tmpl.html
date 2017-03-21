@@ -17,7 +17,7 @@
                      </p>
                 </div>
                 <div class="panel-footer bg-primary-color-b" style="overflow: hidden">
-                    <span class="label label-warning" ng-repeat="category in toy.categories">{{category}}</span>
+                    <span class="label label-warning" ng-repeat="category in toy.categories">{{$ctrl.getCategoryByName(category).name_es}}</span>
                     <span class="label label-primary pull-right">{{toy.price | number: 2}} €</span>
                 </div>
             </div>

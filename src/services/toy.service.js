@@ -37,7 +37,6 @@
                 .then(function (response) {
                     // BAckend Devuelve el objeto toy dentro de un objeto error
                     //    --> cuando se corrija se debería de volvera poner `return $q.when(response.data);`
-                    console.log("toy.service get", response)
                     return $q.when(response.data.error);
                 })
                 .catch(function (err) {
@@ -52,12 +51,16 @@
                 searcher.criteria = criteria;
             }
             if (searcher.criteria.category) {
-                queryParams.push("category=" + searcher.criteria.category);
+                queryParams.push("category=" + searcher.criteria.category.name);
+            }
+
+            if (searcher.criteria.geolocation && searcher.criteria.radius) {
+                queryParams.push("radius="+searcher.criteria.radius+"&latitude="+searcher.criteria.geolocation.latitude + "&longitude="+searcher.criteria.geolocation.longitude);
+                console.log("queryParams", queryParams)
             }
             return $http
                 .get(CONF.API_BASE + ENDPOINTS.TOYS + '?' + queryParams.join('&'))
                 .then(function (response) {
-                    console.log("getall response", response)
                     // Almacena la lista de productos en filteredList.items
                     filteredList.items = response.data.rows;
                     return $q.when(filteredList.items);
@@ -69,16 +72,13 @@
         }
 
         function search(text, criteria) {
-            console.log("search", text, criteria)
             return getAll(criteria)
                 .then(function (toys) {
-                    console.log("search response", toys)
                     if (!toys) return $q.when([]);
                     filteredList.items = toys.filter(function(toy) {
                         var res = applySearchFilter(toy, text)
                         return res;
                     })
-                    console.log("search filteredList", filteredList)
                     return $q.when(filteredList.items);
                 })
                 .catch(function (err) {
@@ -89,7 +89,6 @@
         }
 
         function applySearchFilter(toy, text) {
-            console.log("applySearchFilter", text, toy);
             var lowercaseQuery = angular.lowercase(text);
             var lowercaseToyName = angular.lowercase(toy.name);
             var lowercaseToyDesc = angular.lowercase(toy.description);
@@ -146,7 +145,6 @@
                     return $q.when(url);
                 })
                 .catch(function(err){
-                    console.log("error azure", err);
                     return $q.reject(err);
                 })
         }
