@@ -143,10 +143,19 @@ p.description {
 }
 
 .toy-sell-button {
-    position:absolute;
+    position:fixed;
     bottom:5px;
     right:5px;
     border-radius:100%;
+    opacity: 0.5;
+    filter: alpha(opacity=50);
+}
+
+.toy-sell-button:hover {
+    opacity: 1;
+    filter: alpha(opacity=100);
+}
+
 .upload-image-btn {
     position: relative;
     top: -35px;
