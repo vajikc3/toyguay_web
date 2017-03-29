@@ -7,8 +7,11 @@
                 scope: {
                     imageSelected: "&"
                 },
-                template: "<input type='file' accept='image/*' />",
-                link: function(scope, element){
+                template: "<input class='fileinput' type='file' accept='image/*' data-filename-placement='inside'/>",
+                link: function(scope, element, attr){
+                    element.find('input').attr('id' , "input_" + attr.id);
+                    $('#input_' + attr.id).bootstrapFileInput();
+                    $('.file-inputs').bootstrapFileInput();
                     element.bind("change", function(e){
                         if(e.target.files.length > 0){
                             scope.imageSelected({

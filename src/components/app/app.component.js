@@ -25,23 +25,23 @@
             templateUrl : 'src/components/app/app.tmpl.html'
         })
 
-    AppController.$inject = ['AuthenticationService', 'UserService', '$scope'];
-    
-    function AppController (AuthenticationService, UserService, $scope) {
+    AppController.$inject = ['AuthenticationService', 'UserService', '$scope', 'ToyService'];
+
+    function AppController (AuthenticationService, UserService, $scope, ToyService) {
         $ctrl = this;
         $ctrl.loginState = AuthenticationService.state;
         $ctrl.logout = logout;
+        $ctrl.searcher = ToyService.searcher;
 
         $ctrl.$onInit = onInit;
 
         init();
 
         function onInit(){
-            console.log("oninit");
+
         }
         function init(){
             AuthenticationService.refreshState();
-            console.log($ctrl.loginState)
         }
 
         function logout() { 
@@ -50,7 +50,6 @@
 
         $ctrl.updateUser = function (){
             $ctrl.user = AuthenticationService.getLoggedUserData();
-            console.log($ctrl.user)
         }
 
     }

@@ -2,26 +2,27 @@
         <div class="toy-card-col col-xs-12 col-sm-6 col-md-4 col-lg-3 toy-card" 
                 ng-repeat="toy in $ctrl.filteredList.items">
             <div class="panel panel-default"  style="overflow: hidden;">
-                <div class="toy-card-image" style="background-image: url({{toy.imageURL[0]}});">
-                    
-                </div>
+                    <!-- <span style="position: relative;top:5px;left:5px"><i class="glyphicon glyphicon-search" style="color:white"></i></span> -->
+                    <div class="toy-card-image" style="background-image: url('{{$ctrl.getImageURL(toy)}}');" ng-click="$ctrl.openImageModal(toy.imageURL[0])">
+                        <div class="toy-card-image-hover">
+                        </div>
+                    </div>
                 <div style="height: 0px">
                     <img class="avatar-img-toy-card avatar-img img-circle" ng-src="{{$ctrl.getSellerAvatar(toy.seller)}}" alt=""> 
                     <span class="nick-name-toy-card">{{toy.seller.nick_name}}</span>
                 </div>
                 <div class="panel-body toy-card-body">
                     <h1 class="toy-card-title" ng-link="['ToyDetail', {id: toy._id}]" style="cursor: pointer">{{toy.name}}</h1>
-                    
+
                     <p class="toy-card-text" ng-maxlength="10" >
                         {{toy.description | limitTo: 100 }}{{toy.description.length > 100 ? '...' : ''}}
                      </p>
                 </div>
-                <div class="panel-footer bg-primary-color-b" >
-                    <span class="label label-warning" ng-repeat="category in toy.categories">{{category}}</span>
+                <div class="panel-footer bg-primary-color-b" style="overflow: hidden">
+                    <span class="label label-warning" ng-repeat="category in toy.categories track by $index">{{$ctrl.getCategoryByName(category).name_es}}</span>
                     <span class="label label-primary pull-right">{{toy.price | number: 2}} €</span>
                 </div>
             </div>
         </div>
 </div>
-<button ng-init="hover=false" ng-mouseover="hover=true" ng-mouseleave="hover=false" class="btn btn-success toy-sell-button" ><i class="glyphicon glyphicon-plus"></i> <span ng-show="hover">Vender</span></button>
 

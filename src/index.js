@@ -7,7 +7,9 @@
             'angular-storage',
             'ngMessages',
             'ngLodash',
-            'azureBlobUpload'
+            'azureBlobUpload',
+            'ui-leaflet',
+            'geolocation'
         ])
 
     /* === CONFIG === */
@@ -18,9 +20,16 @@
 
             // Configuración URLENCODE para enviar objetos json vía $http.post
             $httpProvider.defaults.transformRequest = function(data){
-                if (data === undefined || data instanceof Blob) {
+                if (data === undefined) {
                     return data;
                 }
+
+                if (data instanceof Blob){
+                    var formData = new FormData();
+                    formData.append('file', data);
+                    return formData;
+                }
+
                 return $.param(data);
             }
 

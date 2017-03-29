@@ -6,15 +6,18 @@
             controller: ToyListComponent
         });
 
-    ToyListComponent.$inject = ['$scope', 'ToyService', 'UserService'];
+    ToyListComponent.$inject = ['$scope', '$uibModal', 'ToyService', 'UserService', 'CategoryService'];
 
-    function ToyListComponent($scope, ToyService, UserService) {
+    function ToyListComponent($scope, $uibModal, ToyService, UserService, CategoryService) {
         var $ctrl = this;
 
         /* ==== INTERFACE ==== */
 
         $ctrl.$onInit = onInit;
         $ctrl.getSellerAvatar = getSellerAvatar;
+        $ctrl.getCategoryByName = getCategoryByName;
+        $ctrl.openImageModal = openImageModal;
+        $ctrl.getImageURL = getImageURL;
 
         init();
         /* ==== IMPLEMENTATION ==== */
@@ -31,5 +34,31 @@
             var userWithAvatar = UserService.setAvatarImageHelper(user);
             return userWithAvatar.imageURL;
         }
+
+        function getCategoryByName(categoryName){
+            return CategoryService.getCategoryByName(categoryName);
+        }
+
+        function openImageModal(imageURL) {
+            var modalInstance = $uibModal.open({
+              animation: true,
+              component: 'toyImageModal',
+              windowTemplateUrl: 'assets/uib/template/modal/window.html',
+              size: 'lg',
+              resolve: {
+                imageURL: function () {
+                  return imageURL;
+                }
+              }
+            });
+          }
+
+          function getImageURL(toy){
+            if (toy.imageURL.length === 0){
+                return "http://placehold.it/250x250?text=Sin foto"
+            } else {
+                return toy.imageURL[0];
+            }
+          }
     }
 })();
