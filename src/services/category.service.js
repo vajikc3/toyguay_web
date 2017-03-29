@@ -3,9 +3,9 @@
         .module('toyguay')
         .service('CategoryService', CategoryService);
 
-    CategoryService.$inject = ['$http', '$log', 'CONF', 'ENDPOINTS', 'lodash']
+    CategoryService.$inject = ['$http', '$q', '$log', 'CONF', 'ENDPOINTS', 'lodash']
 
-    function CategoryService($http, $log, CONF, ENDPOINTS, lodash) {
+    function CategoryService($http, $q, $log, CONF, ENDPOINTS, lodash) {
         var cachedCategories = {
             items : []
         };
@@ -22,11 +22,11 @@
                 .get(CONF.API_BASE + ENDPOINTS.CATEGORIES)
                 .then(function (response) {
                     cachedCategories.items = response.data.rows;
-                    return response.data.rows;
+                    return $q.when(response.data.rows);
                 })
                 .catch(function (err) {
                     $log.error("Cannot obtain categories from ToyGuay. Try again later...", err)
-                    return $q.reject(err.data.error)
+                    return $q.reject(err)
                 })
         }
 

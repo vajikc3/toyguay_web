@@ -7,9 +7,9 @@
             controller: ToyDetailComponent
         });
 
-    ToyDetailComponent.$inject = ['ToyService', 'UserService', 'CategoryService']
+    ToyDetailComponent.$inject = ['$uibModal', 'ToyService', 'UserService', 'CategoryService']
 
-    function ToyDetailComponent(ToyService, UserService, CategoryService) {
+    function ToyDetailComponent($uibModal, ToyService, UserService, CategoryService) {
         var $ctrl = this;
         $ctrl.toy = {};
         $ctrl.seller = {};
@@ -22,6 +22,7 @@
         $ctrl.selectImage = selectImage;
         $ctrl.getLocaleDate = getLocaleDate;
         $ctrl.getCategoryByName = getCategoryByName;
+        $ctrl.openImageModal = openImageModal;
 
         /* ==== IMPLEMENTATION ==== */
         function routerOnActivate(payload) {
@@ -34,7 +35,11 @@
                 .get(id)
                 .then(function (toy) {
                     $ctrl.toy = toy;
-                    if (toy.imageURL[0]) $ctrl.selectedImage = toy.imageURL[0];
+                    if (toy.imageURL.length === 0) {
+                        $ctrl.selectedImage = "http://placehold.it/250x250?text=Sin foto"
+                    } else {
+                        $ctrl.selectedImage = toy.imageURL[0];
+                    }
                     loadUserData(toy.seller);
                 })
                 .catch(function(err){
@@ -81,7 +86,23 @@
         }
 
         function getCategoryByName(categoryName){
-            return CategoryService.getCategoryByName(categoryName);
+            var category = CategoryService.getCategoryByName(categoryName);
+            if (!category) return "";
+            return category.name_es;
         }
+
+         function openImageModal(imageURL) {
+            var modalInstance = $uibModal.open({
+              animation: true,
+              component: 'toyImageModal',
+              windowTemplateUrl: 'assets/uib/template/modal/window.html',
+              size: 'lg',
+              resolve: {
+                imageURL: function () {
+                  return imageURL;
+                }
+              }
+            });
+          }
     }
 })();

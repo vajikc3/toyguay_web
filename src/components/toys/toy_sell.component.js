@@ -14,7 +14,7 @@
         var $ctrl = this;
         this.$routerOnActivate = routerOnActivate;
         /* __==--Interface props--==__ */
-        $ctrl.categories = CategoryService.getAll();
+        $ctrl.categories = [];
         $ctrl.toy = {};
         $ctrl.selectedCategories = [];
         $ctrl.toy.images = [];
@@ -31,6 +31,9 @@
 
         /* __==--Impl--==__ */
         function routerOnActivate(){
+            CategoryService.getAll().then(function(categories){
+                $ctrl.categories = categories;
+            })
             if (!AuthenticationService.state.authenticated){
                 $ctrl.$router.navigateByUrl('/login/')
             }

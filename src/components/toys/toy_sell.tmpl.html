@@ -40,8 +40,8 @@
                                 Añadir Categoría <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu dropdown-menu-left">
-                                <li ng-repeat="category in $ctrl.categories | orderBy:'name'">
-                                    <a class="dropdown-item text-left" href="#" ng-click="$ctrl.addCategory(category)">{{category.name}}</a>
+                                <li ng-repeat="category in $ctrl.categories | orderBy:'name_es'">
+                                    <a class="dropdown-item text-left" href="#" ng-click="$ctrl.addCategory(category)">{{category.name_es}}</a>
                                 </li>
                             </ul>
                         </div>

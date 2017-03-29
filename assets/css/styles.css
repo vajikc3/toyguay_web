@@ -83,12 +83,13 @@ body {
     text-shadow: 0 0 0.2em #FFF, 0 0 0.2em #FFF,0 0 0.2em #FFF;
 }
 .toy-card-image {
-     background-size: cover; 
-     background-position: center; 
-     width: 100%; 
-     height: 200px; 
-     overflow: hidden;
-     border-bottom: 1px solid #696969;
+    background-size: cover; 
+    background-position: center; 
+    width: 100%; 
+    height: 200px; 
+    overflow: hidden;
+    border-bottom: 1px solid #696969;
+    cursor: pointer;
 }
 
 
@@ -137,6 +138,7 @@ p.description {
      height: 400px; 
      overflow: hidden;
      border-bottom: 1px solid #696969;
+     cursor: pointer;
 }
 
 .toy-detail-price{
@@ -167,6 +169,7 @@ p.description {
      width: 100%;
      height: 180px;
      overflow: hidden;
+     cursor: pointer;
 }
 .toy-detail-image-margin {
     margin-top:5px;
@@ -180,4 +183,15 @@ ol.breadcrumb {
 ol.breadcrumb li.active{
     color: black;
     font-weight: bold;
+}
+
+.toy-card-image-hover {
+    position:relative;
+    top: 0;
+    left: 0;
+    background-color: rgba(0,0,0,1);
+}
+
+.toy-card-image-hover:hover{
+    background-color: rgba(0,0,0,0.8);
 }

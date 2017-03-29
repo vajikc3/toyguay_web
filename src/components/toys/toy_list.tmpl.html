@@ -2,9 +2,11 @@
         <div class="toy-card-col col-xs-12 col-sm-6 col-md-4 col-lg-3 toy-card" 
                 ng-repeat="toy in $ctrl.filteredList.items">
             <div class="panel panel-default"  style="overflow: hidden;">
-                <div class="toy-card-image" style="background-image: url({{toy.imageURL[0]}});">
-
-                </div>
+                    <!-- <span style="position: relative;top:5px;left:5px"><i class="glyphicon glyphicon-search" style="color:white"></i></span> -->
+                    <div class="toy-card-image" style="background-image: url('{{$ctrl.getImageURL(toy)}}');" ng-click="$ctrl.openImageModal(toy.imageURL[0])">
+                        <div class="toy-card-image-hover">
+                        </div>
+                    </div>
                 <div style="height: 0px">
                     <img class="avatar-img-toy-card avatar-img img-circle" ng-src="{{$ctrl.getSellerAvatar(toy.seller)}}" alt=""> 
                     <span class="nick-name-toy-card">{{toy.seller.nick_name}}</span>
@@ -17,7 +19,7 @@
                      </p>
                 </div>
                 <div class="panel-footer bg-primary-color-b" style="overflow: hidden">
-                    <span class="label label-warning" ng-repeat="category in toy.categories">{{$ctrl.getCategoryByName(category).name_es}}</span>
+                    <span class="label label-warning" ng-repeat="category in toy.categories track by $index">{{$ctrl.getCategoryByName(category).name_es}}</span>
                     <span class="label label-primary pull-right">{{toy.price | number: 2}} €</span>
                 </div>
             </div>
