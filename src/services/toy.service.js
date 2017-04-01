@@ -31,7 +31,7 @@
         /* ==== IMPLEMENTATION ==== */
 
         function get(id) {
-            if (!id) return $q.reject({error:"Falta ID de producto"})
+            if (!id) return $q.reject({error:"Product ID missing"})
             return $http
                 .get(CONF.API_BASE + ENDPOINTS.TOYS + id)
                 .then(function (response) {
@@ -100,6 +100,8 @@
         function sell(toy){
             if (!toy.categories || toy.categories.length === 0) {
                 toy.categories = ['default'].join(',');
+            }else {
+                toy.categories = toy.categories.join(',');
             }
             return $http({
                 method: 'POST',
