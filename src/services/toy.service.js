@@ -3,9 +3,9 @@
         .module('toyguay')
         .service('ToyService', ToyService);
 
-    ToyService.$inject = ['$http', '$q', '$log', 'CONF', 'ENDPOINTS', 'UserService', 'azureBlob']
+    ToyService.$inject = ['$http', '$q', '$log', 'CONF', 'ENDPOINTS', 'UserService', 'azureBlob', 'lodash']
 
-    function ToyService($http, $q, $log, CONF, ENDPOINTS, UserService, azureBlob) {
+    function ToyService($http, $q, $log, CONF, ENDPOINTS, UserService, azureBlob, lodash) {
 
         var filteredList = {
             items: null
@@ -25,7 +25,9 @@
             applySearchFilter: applySearchFilter,
             search: search,
             searcher: searcher,
-            uploadImage: uploadImage
+            uploadImage: uploadImage,
+            buy: buy,
+            transactionStatus: transactionStatus
         }
 
         /* ==== IMPLEMENTATION ==== */
@@ -118,7 +120,7 @@
                     return $q.when({success: true});
                 })
             }).catch(function(error){
-                $log.error("Error del sistema autenticación: ", error);
+                $log.error("Error selling toy ", error);
                 return $q.reject(error);
             });
         }
@@ -134,7 +136,7 @@
             }).then(function(response){
                 return $q.when({success: true});
             }).catch(function(error){
-                $log.error("Error del sistema autenticación: ", error);
+                $log.error("Error saving image: ", error);
                 return $q.reject(error);
             });
         }
@@ -148,6 +150,38 @@
                 })
                 .catch(function(err){
                     return $q.reject(err);
+                })
+        }
+
+        function buy(toy){
+            return $http({
+                method: 'POST',
+                url: CONF.API_BASE + ENDPOINTS.TRANSACTIONS,
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                data: {
+                    toy: toy._id,
+                    type: "buy"
+                }
+            }).then(function(response){
+                return $q.when({success: true});
+            }).catch(function(error){
+                return $q.reject(error);
+            });
+        }
+
+        function transactionStatus(how, toy){
+            var queryParams = [];
+
+            queryParams.push("how=" + how);
+            return $http
+                .get(CONF.API_BASE + ENDPOINTS.TRANSACTIONS + '?' + queryParams.join('&'))
+                .then(function (response) {
+                    var transaction = lodash.find(response.data.rows, function(t) { return t.toy._id == toy._id});
+                    return $q.when(transaction);
+                })
+                .catch(function (err) {
+                    $log.error("Cannot get transactions", err)
+                    return $q.reject(err.data.error)
                 })
         }
 

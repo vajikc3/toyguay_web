@@ -8,7 +8,8 @@
             "IMAGES": "images/",
             "AUTHENTICATE": "users/authenticate",
             "REGISTER": "users/register",
-            "RECOVER": "users/recover"
+            "RECOVER": "users/recover",
+            "TRANSACTIONS": "transactions/"
         })
 
 })();

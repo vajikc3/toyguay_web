@@ -7,15 +7,17 @@
             controller: ToyDetailComponent
         });
 
-    ToyDetailComponent.$inject = ['$uibModal', 'ToyService', 'UserService', 'CategoryService']
+    ToyDetailComponent.$inject = ['$uibModal', 'ToyService', 'UserService', 'CategoryService', 'AuthenticationService']
 
-    function ToyDetailComponent($uibModal, ToyService, UserService, CategoryService) {
+    function ToyDetailComponent($uibModal, ToyService, UserService, CategoryService, AuthenticationService) {
         var $ctrl = this;
         $ctrl.toy = {};
         $ctrl.seller = {};
         $ctrl.selectedImage = "";
         $ctrl.center = {};
         $ctrl.markers = {};
+        $ctrl.transactionStatus = 0;
+        $ctrl.isOwnToy = false;
 
         /* ==== INTERFACE ==== */
         this.$routerOnActivate = routerOnActivate;
@@ -23,6 +25,7 @@
         $ctrl.getLocaleDate = getLocaleDate;
         $ctrl.getCategoryByName = getCategoryByName;
         $ctrl.openImageModal = openImageModal;
+        $ctrl.buy = buy;
 
         /* ==== IMPLEMENTATION ==== */
         function routerOnActivate(payload) {
@@ -41,6 +44,7 @@
                         $ctrl.selectedImage = toy.imageURL[0];
                     }
                     loadUserData(toy.seller);
+                    setTransactionStatus();
                 })
                 .catch(function(err){
                     if (err.code === 403) {
@@ -58,8 +62,8 @@
         function loadUserData(sellerId){
             UserService
                 .getUserData(sellerId)
-                .then(function(user){
-                    $ctrl.seller = user;
+                .then(function(seller){
+                    $ctrl.seller = seller;
                     $ctrl.center = {
                         lat: $ctrl.seller.location.coordinates[0],
                         lng: $ctrl.seller.location.coordinates[1],
@@ -72,6 +76,7 @@
                             focus: true
                         }
                     }
+                    verifyIsOwnToy(seller);
                 });
             UserService
                 .getUserSellingToyCount(sellerId)
@@ -91,7 +96,7 @@
             return category.name_es;
         }
 
-         function openImageModal(imageURL) {
+        function openImageModal(imageURL) {
             var modalInstance = $uibModal.open({
               animation: true,
               component: 'toyImageModal',
@@ -103,6 +108,34 @@
                 }
               }
             });
-          }
+        }
+
+        function buy() {
+            ToyService.buy($ctrl.toy).then(function(){
+                $ctrl.transactionStatus = 1;
+            })
+        }
+
+        function verifyIsOwnToy(seller){
+            UserService
+                .getUserData(AuthenticationService.getTokenData().id)
+                .then(function(loggedUserData){
+                    if(loggedUserData.email === seller.email){
+                        $ctrl.isOwnToy = true;
+                    }
+                });
+        }
+
+        function setTransactionStatus(){
+            ToyService
+                .transactionStatus("buyer", $ctrl.toy)
+                .then(function(transaction){
+                    if (!transaction) {
+                        $ctrl.transactionStatus = 0;
+                    } else {
+                        $ctrl.transactionStatus = 1;
+                    }
+                })
+        }
     }
 })();

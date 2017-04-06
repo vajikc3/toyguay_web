@@ -30,7 +30,11 @@
         <!-- Toy data -->
         <div class="panel panel-default toy-description">
             <div class="panel-body">
-                <span class="toy-detail-price" style="font-size: 30pt">{{$ctrl.toy.price | number: 2}} €</span><button class="btn btn-primary btn-lg pull-right">Comprar</button>
+                <span class="toy-detail-price" style="font-size: 30pt">{{$ctrl.toy.price | number: 2}} €</span>
+
+                    <button class="btn btn-primary btn-lg pull-right" ng-if="!$ctrl.isOwnToy && $ctrl.transactionStatus == 0" ng-click="$ctrl.buy()">Comprar</button>
+                    <button class="btn btn-primary btn-lg pull-right" ng-if="!$ctrl.isOwnToy && $ctrl.transactionStatus == 1" ng-disabled="true">Petición de compra realizada</button>
+
                 <h1 class="text-capitalize">{{$ctrl.toy.name}}</h1>
                 <p class="toy-detail-description">{{$ctrl.toy.description}}</p>
                 <p ng-if="$ctrl.toy || $ctrl.toy.state=='selling'" class="toy-detail-state"><strong>En venta</strong> desde {{$ctrl.getLocaleDate($ctrl.toy.createdAt)}}</p>
