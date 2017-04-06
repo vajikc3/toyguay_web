@@ -1,0 +1,58 @@
+<!-- NAVBAR -->
+<nav class="navbar navbar-default navbar-fixed-top " style="padding-right: 20px">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand navbar-left" href="/"><img src="/assets/images/toyguay_logo.png" height="50px" alt="">ToyGuay</a>
+    </div>
+
+   <search-toys class="navbar-form navbar-center" ng-if="$ctrl.searcher.activated"></search-toys>
+
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+        <!-- MENU OPTIONS -->
+        <ul class="nav navbar-nav navbar-right">
+            <!-- USER DATA -->
+            <li  class="dropdown" ng-show="$ctrl.loginState.authenticated">
+                <div style="display:table" class="dropdown-toggle" data-toggle="dropdown">
+                    <img class="avatar-img img-circle"
+                         ng-src="{{$ctrl.loginState.loggedUserData.imageURL}}"
+                         alt=""
+                         style="margin:width:44px;display:table-cell;background-color: white">
+                    <p style="display: table-cell;vertical-align: middle;padding-left: 5px; color:white">
+                        <strong>{{$ctrl.loginState.loggedUserData.nick_name}}</strong><span class="caret"></span>
+                        <br>
+                        <a ng-show="$ctrl.loginState.authenticated" ng-click="$ctrl.logout()" style="color:white;display: inline;">Logout</a>
+                    </p>
+                </div>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a href="/user/profile">Perfil</a>
+                    </li>
+                    <li>
+                        <a href="/toys/sell">Vender</a>
+                    </li>
+                </ul>
+            </li>
+
+
+            <!-- LOGIN BUTTON -->
+            <li>
+                <a ng-show="!$ctrl.loginState.authenticated" href="/login" >Login</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+
+<!-- MAIN CONTAINER -->
+<div class="container-fluid">
+    <ng-outlet></ng-outlet>
+    <!-- <button ng-init="hover=false" ng-mouseover="hover=true" ng-mouseleave="hover=false" class="" ><i class="glyphicon glyphicon-plus"></i> <span ng-show="hover">Vender</span></button> -->
+</div>
+    <a href="/toys/sell" ><img class="toy-sell-button" src="assets/images/big-plus.png" width="100px"  height="100px" alt="" style="position: fixed; bottom:0; right:0;"></a>
+

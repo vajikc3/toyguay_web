@@ -1,0 +1,84 @@
+<!-- BREADCRUMBS -->
+<div class="container-fluid top-padding">
+    <ol class="breadcrumb">
+        <li><a ng-link="['ToyList']"><i class="glyphicon glyphicon-home"></i></a></li>
+        <li class="active">{{$ctrl.toy.name}}</li>
+    </ol>
+</div>
+
+
+<!-- TOY DETAIL CONTAINER -->
+<div class="container">
+
+
+    <!-- TOY IMAGES COL-->
+     <div class="col-md-6">
+         <div class="panel panel-default toy-description">
+            <div class="toy-detail-image" style="background-image: url('{{$ctrl.selectedImage}}');" ng-click="$ctrl.openImageModal($ctrl.selectedImage)">
+            </div>
+            <div style="margin: 5px 0" max-width: 250px" style="margin: 10px">
+                <span ng-repeat="image in $ctrl.toy.imageURL" >
+                    <img src="{{image}}" alt="" style="max-height:50px" ng-click="$ctrl.selectImage(image)">
+                </span>
+            </div>
+
+         </div>
+     </div>
+
+     <!-- TOY DATA COL-->
+     <div class="col-md-6">
+        <!-- Toy data -->
+        <div class="panel panel-default toy-description">
+            <div class="panel-body">
+                <span class="toy-detail-price" style="font-size: 30pt">{{$ctrl.toy.price | number: 2}} €</span>
+
+                    <button class="btn btn-primary btn-lg pull-right" ng-if="!$ctrl.isOwnToy && $ctrl.transactionStatus == 0" ng-click="$ctrl.buy()">Comprar</button>
+                    <button class="btn btn-primary btn-lg pull-right" ng-if="!$ctrl.isOwnToy && $ctrl.transactionStatus == 1" ng-disabled="true">Petición de compra realizada</button>
+
+                <h1 class="text-capitalize">{{$ctrl.toy.name}}</h1>
+                <p class="toy-detail-description">{{$ctrl.toy.description}}</p>
+                <p ng-if="$ctrl.toy || $ctrl.toy.state=='selling'" class="toy-detail-state"><strong>En venta</strong> desde {{$ctrl.getLocaleDate($ctrl.toy.createdAt)}}</p>
+            </div>
+            <div class="panel-footer">
+                <span class="label label-warning" ng-repeat="category in $ctrl.toy.categories">{{$ctrl.getCategoryByName(category)}}</span>
+            </div>
+        </div>
+
+        <!-- Map -->
+        <leaflet defaults="defaults" lf-center="$ctrl.center" markers="$ctrl.markers" height="200px" width="100%"></leaflet>
+
+        <!-- User data -->
+            <div style="display:table">
+                <img class="avatar-img img-circle"
+                     ng-src="{{$ctrl.seller.imageURL}}"
+                     alt=""
+                     style="margin:width:44px;display:table-cell;background-color: black">
+                <p style="display: table-cell;vertical-align: middle;padding-left: 5px; color:black">
+                    <strong>{{$ctrl.seller.nick_name}}</strong>
+                    <br>
+                    <span>{{$ctrl.seller.toyCount}} productos en venta</span>
+
+                </p>
+            </div>
+            <div style="margin-top: 10px">
+                <div><strong>Otros productos que vende el usuario</strong></div>
+                <div style="margin: 5px 0" max-width: 250px" style="margin: 10px">
+                    <span ng-repeat="toy in $ctrl.seller.toys | limitTo: 5" >
+                        <img ng-if="toy.imageURL.length > 0" src="{{toy.imageURL[0]}}" alt="" style="max-height:50px" >
+                        <img ng-if="toy.imageURL.length == 0" src="http://placehold.it/50x50?text=Sin foto" alt="">
+                        <!-- <div  style="background-color:white;width:50px;height:50px;display:inline-block;vertical-align: middle"></div> -->
+                    </span>
+                </div>
+                <span ng-repeat="image in $ctrl.toy.images" >
+                    <img src="{{image}}" alt="" style="max-height:50px">
+                </span>
+
+        <!-- Social -->
+        <div style="margin-top: 10px">
+            <div><strong>Compartir</strong></div>
+            <img class="avatar-img img-circle" src="https://cdn4.iconfinder.com/data/icons/social-media-icons-the-circle-set/48/facebook_circle-128.png" alt="" style="width:50px;display:inline-block;">
+            <img class="avatar-img img-circle" src="https://cdn4.iconfinder.com/data/icons/social-media-icons-the-circle-set/48/twitter_circle-128.png" alt="" style="width:50px;display:inline-block;">
+            <img class="avatar-img img-circle" src="https://cdn4.iconfinder.com/data/icons/social-media-icons-the-circle-set/48/google_circle-128.png" alt="" style="width:50px;display:inline-block;">
+        </div>
+     </div>
+</div>

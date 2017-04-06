@@ -1,0 +1,101 @@
+<!-- BREADCRUMBS -->
+<div class="container-fluid top-padding">
+    <ol class="breadcrumb">
+        <li><a ng-link="['ToyList']"><i class="glyphicon glyphicon-home"></i></a></li>
+        <li class="active">Nueva Venta de Juguete</li>
+    </ol>
+</div>
+
+<div class="container">
+    <div class="col-md-6">
+        <form name="sellToyForm" ng-submit="$ctrl.sellToy(sellToyForm.$valid)" novalidate>
+            <div class="panel panel-default toy-description">
+                <div class="panel-body">
+                        <div class="form-group has-feedback" ng-class="{'has-success':sellToyForm.nombre.$valid}">
+                            <label for="nombre">Nombre {{sellToyForm.nombre.$valid}}</label>
+                            <input type="text" class="form-control" name="nombre" id="nombre" placeholder="Nombre del Juguete" ng-model="$ctrl.toy.name" required>
+                            <span ng-if="sellToyForm.nombre.$valid" class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
+                            <span ng-if="!sellToyForm.nombre.$valid" class="glyphicon glyphicon-warning-sign form-control-feedback" aria-hidden="true"></span>
+                        </div>
+                        <div class="form-group has-feedback" ng-class="{'has-success':sellToyForm.descripcion.$valid}">
+                            <label for="descripcion">Descripción</label>
+                            <textarea type="text" class="form-control" name="descripcion" id="descripcion" placeholder="Descripción" rows="3" ng-model="$ctrl.toy.description" required></textarea>
+                            <span ng-if="sellToyForm.descripcion.$valid" class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
+                            <span ng-if="!sellToyForm.descripcion.$valid" class="glyphicon glyphicon-warning-sign form-control-feedback" aria-hidden="true"></span>
+                        </div>
+                        <div class="form-group has-feedback" ng-class="{'has-success':sellToyForm.precio.$valid}">
+                            <label class="sr-only" for="exampleInputAmount">Precio</label>
+                            <div class="input-group col-xs-4">
+                                <input type="text" class="form-control" name="precio" id="precio" placeholder="Precio" ng-init="$ctrl.toy.price = 0.0" ng-model="$ctrl.toy.price" required valid-integer>
+                                <div class="input-group-addon">€</div>
+                            </div>
+                        </div>
+                        <!-- Categorias -->
+                        <span class="validityFeedback">
+                            <span ng-if="$ctrl.selectedCategories.length > 0" class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true" style="color:green"></span>
+                            <span ng-if="$ctrl.selectedCategories.length === 0" class="glyphicon glyphicon-warning-sign form-control-feedback" aria-hidden="true"></span>
+                        </span>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Añadir Categoría <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-left">
+                                <li ng-repeat="category in $ctrl.categories | orderBy:'name_es'">
+                                    <a class="dropdown-item text-left" href="#" ng-click="$ctrl.addCategory(category)">{{category.name_es}}</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <span class="label label-warning" ng-repeat="category in $ctrl.selectedCategories | orderBy:'name'">
+                            <span ng-click="$ctrl.removeCategoryFromToy(category)" style="cursor: pointer;"><i class="glyphicon glyphicon-remove"></i></span> {{category.name}}
+                        </span>
+                        <!-- VALIDACION DE Nº DE IMAGENES > 0-->
+                        <input type="hidden" name="imageCount" ng-model="$ctrl.toy.images.length" valid-image-count>
+                        <!-- VALIDACION DE Nº DE CATEGORIAS > 0-->
+                        <input type="hidden" name="imageCount" ng-model="$ctrl.selectedCategories.length" valid-category-count>
+                </div>
+                <div class="panel-footer">
+                    <button type="submit" ng-disabled="sellToyForm.$invalid || $ctrl.isImageLoading()" class="btn btn-primary">Poner a la Venta</button>
+                </div>
+                <div ng-if="$ctrl.error">
+                    <div uib-alert template-url="node_modules/angular-ui-bootstrap/template/alert/alert.html" 
+                        class="alert-danger">
+                        {{$ctrl.error.data.error}}
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+    <div class="panel panel-default toy-description">
+            <div class="panel-body">
+                <div class="col-md-6 toy-detail-image-margin">
+                    <div class="toy-list-detail-image" style="background-image: url('{{$ctrl.getImageURL(0)}}');"></div>
+                    <div class="overlayer">
+                        <image-selector id="img1" class="upload-image-btn" image-selected="$ctrl.uploadImage(file, 0)"></image-selector>
+                    </div>
+                </div>
+                <div class="col-md-6 toy-detail-image-margin" >
+                    <div class="toy-list-detail-image" style="background-image: url('{{$ctrl.getImageURL(1)}}');"></div>
+                    <div class="overlayer">
+                        <image-selector id="img2" class="upload-image-btn" image-selected="$ctrl.uploadImage(file, 1)"></image-selector>
+                    </div>
+                </div>
+                <div class="col-md-6 toy-detail-image-margin" >
+                    <div class="toy-list-detail-image" style="background-image: url('{{$ctrl.getImageURL(2)}}');"></div>
+                    <div class="overlayer">
+                        <image-selector id="img3" class="upload-image-btn" image-selected="$ctrl.uploadImage(file, 2)"></image-selector>
+                    </div>
+                </div>
+                <div class="col-md-6 toy-detail-image-margin" >
+                    <div class="toy-list-detail-image" style="background-image: url('{{$ctrl.getImageURL(3)}}');"></div>
+                    <div class="overlayer">
+                        <image-selector id="img4" class="upload-image-btn" image-selected="$ctrl.uploadImage(file, 3)"></image-selector>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
