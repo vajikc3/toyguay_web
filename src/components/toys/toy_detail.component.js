@@ -64,16 +64,18 @@
                 .getUserData(sellerId)
                 .then(function(seller){
                     $ctrl.seller = seller;
-                    $ctrl.center = {
-                        lat: $ctrl.seller.location.coordinates[0],
-                        lng: $ctrl.seller.location.coordinates[1],
-                        zoom: 13
-                    }
-                    $ctrl.markers=  {
-                        mainMarker: {
+                    if($ctrl.seller.location){
+                        $ctrl.center = {
                             lat: $ctrl.seller.location.coordinates[0],
                             lng: $ctrl.seller.location.coordinates[1],
-                            focus: true
+                            zoom: 13
+                        }
+                        $ctrl.markers=  {
+                            mainMarker: {
+                                lat: $ctrl.seller.location.coordinates[0],
+                                lng: $ctrl.seller.location.coordinates[1],
+                                focus: true
+                            }
                         }
                     }
                     verifyIsOwnToy(seller);
