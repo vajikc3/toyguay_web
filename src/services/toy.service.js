@@ -21,13 +21,15 @@
             get: get,
             getAll: getAll,
             sell: sell,
+            deleteById: deleteById,
             filteredList: filteredList,
             applySearchFilter: applySearchFilter,
             search: search,
             searcher: searcher,
             uploadImage: uploadImage,
             buy: buy,
-            transactionStatus: transactionStatus
+            transactionStatus: transactionStatus,
+            getToysBySeller: getToysBySeller
         }
 
         /* ==== IMPLEMENTATION ==== */
@@ -58,7 +60,6 @@
 
             if (searcher.criteria.geolocation && searcher.criteria.radius) {
                 queryParams.push("radius="+searcher.criteria.radius+"&latitude="+searcher.criteria.geolocation.latitude + "&longitude="+searcher.criteria.geolocation.longitude);
-                console.log("queryParams", queryParams)
             }
             return $http
                 .get(CONF.API_BASE + ENDPOINTS.TOYS + '?' + queryParams.join('&'))
@@ -97,6 +98,18 @@
             var comp1 = lowercaseToyName.indexOf(lowercaseQuery) >= 0;
             var comp2 = lowercaseToyDesc.indexOf(lowercaseQuery) >= 0;
             return  comp1 || comp2;
+        }
+
+        function getToysBySeller(seller){
+            return $http
+                .get(CONF.API_BASE + ENDPOINTS.TOYS + '?seller=' + seller)
+                .then(function (response) {
+                    return $q.when(response.data.rows);
+                })
+                .catch(function (err) {
+                    $log.error("Cannot obtain toy list for seller from ToyGuay. Try again later...", err);
+                    return  $q.reject([]);
+                })
         }
 
         function sell(toy){
@@ -182,6 +195,18 @@
                 .catch(function (err) {
                     $log.error("Cannot get transactions", err)
                     return $q.reject(err.data.error)
+                })
+        }
+
+        function deleteById(toyId){
+            return $http
+                .delete(CONF.API_BASE + ENDPOINTS.TOYS + "/" + toyId)
+                .then(function(result){
+                    $q.when({success: true});
+                })
+                .catch(function(err){
+                    $log.error("Cannot delete toy" + toyId, err)
+                    $q.reject({error: err})
                 })
         }
 

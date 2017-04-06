@@ -11,6 +11,49 @@
         </ul>
     </div>
     <div class="col-md-8">
-        <p>Selling</p>
+        <table st-table="$ctrl.displayedToys"
+           st-safe-src="$ctrl.toys"
+           class="table table-striped table-bordered table-hover table-condensed">
+            <thead>
+            <tr>
+                <th colspan="5">
+                    <input st-search
+                           placeholder="Búsqueda"
+                           class="input-sm form-control"
+                           type="search"/>
+                </th>
+            </tr>
+            <tr>
+                <th>#</th>
+                <th st-sort="name">Juguete</th>
+                <th st-sort="description">Descripcion</th>
+                <th st-sort="createdAt">Desde</th>
+                <th st-sort="state">Estado</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr ng-repeat="toy in $ctrl.displayedToys | filter: {state:'selling'}">
+                <td>
+                    <button class="btn btn-sm btn-primary btn-danger" ng-click="$ctrl.sellToy(toy)">
+                        Quitar
+                    </button>
+                </td>
+                <td>{{ toy.name }}</td>
+                <td>{{ toy.description }}</td>
+                <td>{{ $ctrl.getLocaleDate(toy.createdAt)}}</td>
+                <td>{{ $ctrl.getStateText(toy.state)}}</td>
+            </tr>
+            </tbody>
+
+            <tfoot>
+                    <tr>
+                        <td colspan="8" class="text-center">
+                            <!-- <div st-pagination="" st-items-by-page="10" st-displayed-pages="7"></div> -->
+                        </td>
+                    </tr>
+            </tfoot>
+
+        </table>
     </div>
 </div>

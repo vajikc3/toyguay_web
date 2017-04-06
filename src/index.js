@@ -9,7 +9,8 @@
             'ngLodash',
             'azureBlobUpload',
             'ui-leaflet',
-            'geolocation'
+            'geolocation',
+            'smart-table'
         ])
 
     /* === CONFIG === */
